@@ -1,0 +1,72 @@
+@CHARSET "UTF-8";
+body {
+	margin:0;
+}
+#deco_nav {
+	position: absolute;
+	top: 0;
+	right: 20px;
+	margin: 0;
+	padding: 0;
+	z-index: 99;
+}
+#deco_nav li {
+	font-size: 12px;
+	display: inline-block;
+	padding: 0px 3px 0px 3px;
+	margin-top: 5px;
+	margin-right: 5px;
+	border-radius: 5px;
+	border: 1px solid #888;
+}
+#deco_nav li a {
+	margin: 0;
+	padding: 0;
+	font-size: 10px;
+	text-decoration: none;
+}
+#deco_nav li a:hover {
+	color: orange;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px navy;
+}
+.menu {
+	background-color: white;
+}
+.menu a {
+ 	color: navy;
+	font-family: "Malgun Gothic";
+}
+.menu-selected {
+	background-color: orange;
+}
+.menu-selected a {
+	color: white;
+}
+
+* [onclick] {
+	cursor:pointer;
+}
+* [onclick]:hover {
+	color:orange; 
+	text-decoration:none; 
+	text-shadow:1px 1px 1px black;
+}
+.code-view {
+	font-size:9pt;
+}
+.code-name {
+	color:blue;
+}
+.code-value {
+	color: teal;
+}
+.code-clazz {
+	color: navy;
+}
+div#content_div {
+	overflow:auto; 
+	/* text-align:center; */ 
+	background-position:center center; 
+	background-size:contain;
+}

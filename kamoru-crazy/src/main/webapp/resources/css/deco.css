@@ -1,0 +1,190 @@
+@CHARSET "UTF-8";
+body#deco_body {
+	margin:0 auto; 
+	font-family:'Comic Sans MS' '나눔고딕코딩' '맑은 고딕';
+	background-repeat: repeat;
+	background-position: center center;
+	background-size:contain;
+}
+#deco_header {
+	background-color:#588;
+	margin:0;
+}
+#deco_h1 {
+	width:900px;
+	margin:0 auto;
+	font-size: 25px;
+}
+#deco_h1 a {
+	font-family: 'Comic Sans MS' 'Impact' '나눔손글씨 펜' '나눔손글씨 붓' 'URW Chancery L' 'Purisa';
+}
+
+#deco_nav {
+	/* background-color:lightgreen; */
+}
+#deco_nav div {
+	width:900px;
+	margin:0 auto;
+ 	background-color:rgba(255, 255, 255, .5);
+ 	padding:0 10px;
+}
+#deco_nav div section {
+	display: inline-table;
+	margin: 0;
+	padding: 0;
+	width:150px;
+	background-color:#669393;
+	border-radius: 0 0 10px 10px;
+	padding-left: 10px;
+}
+#deco_nav div section h4 {
+	margin:0 10px 0 0;
+	line-height:28px;
+}
+#deco_nav div section ul {
+	position:absolute;
+	background-color:rgba(85, 136, 136, .75);
+	margin:0;
+	border-radius:0 0 10px 10px;
+	list-style:none;
+	display:block;
+	padding-left:10px;
+	width:130px;
+	padding-bottom:5px;
+}
+#deco_nav div section ul li a {
+	font-size: 11px;
+	margin-right:10px;
+}
+
+#deco_section {
+	margin:auto;
+	padding:10px;
+	width: 900px;
+	overflow:auto;
+ 	background-color:rgba(255, 255, 255, .5); 
+}
+#deco_section_wapper {
+	width:100%;
+}
+
+#deco_footer {
+	position:absolute;
+	padding-top: 5px; 
+	padding-bottom: 5px; 
+	font: 10pt arial; 
+	text-align:center;
+	bottom: 0px;
+	width:100%;
+	background-color:rgba(255,255,255,.3)
+}
+#deco_footer div {
+	width:900px;
+	margin:0 auto;
+}
+#deco_footer select {
+	font-size:10px;
+}
+a {
+	color:#123;
+	text-decoration: none;
+}
+a:hover {
+	color: orange;
+	text-decoration: none;
+	text-shadow: 2px 2px 2px #123;
+}
+
+.menu-selected {
+	font-weight:bold;
+	text-shadow: 1px 1px 2px orange;
+}
+.menu {
+	
+}
+
+ul.stack-view {
+	font-family:"나눔고딕코딩";
+	color: black; 
+	font-size: .9em;
+	list-style:none;
+}
+ul.stack-view li {
+	padding-left: 10px;
+	margin-top: 1px;
+}
+ol.code-view {
+	font-family:"나눔고딕코딩";
+	color: red; 
+	font-size: .9em;
+}
+ol.code-view li {
+	padding-left: 10px;
+	margin-top: 1px;
+}
+
+li.notExist {
+	background-color: rgba(123,0,123,0.5);
+	border-radius: 10px;
+}
+
+.code-name {
+	color:blue;
+}
+.code-value {
+	color: teal;
+}
+.code-clazz {
+	color: navy;
+}
+
+#stack-trace,
+#request-attribute,
+#session-attribute {
+	text-align: left;
+	margin: 10px;
+	padding: 5px;
+	border-radius:10px; 
+	background:rgba(255, 255, 255, .75); 	
+}
+
+#error-header {
+	text-align: center;
+	border-radius:10px; 
+	background:rgba(85, 36, 136, .75); 	
+}
+#error-article {
+	text-align: center;
+	border-radius:10px; 
+	background:rgba(85, 136, 36, .75); 	
+}
+
+/* Webkit용 scrollbar ref. http://circlash.tistory.com/610 */
+::-webkit-scrollbar {
+	width: 8px; 
+	height: 8px; 
+	border: 0px solid #fff; 
+	background-color: rgba(255,255,255,0);
+}
+::-webkit-scrollbar-button:start:decrement, 
+::-webkit-scrollbar-button:end:increment {
+	display: block; 
+	height: 10px; 
+	/* background: url('./images/bg.png') #efefef; */
+	background-color: rgba(255,255,255,0);
+}
+::-webkit-scrollbar-track {
+	background-color: rgba(255,255,255,0);
+	/* background: #efefef; */ 
+	-webkit-border-radius: 10px; 
+	border-radius:10px; 
+	-webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0);
+}
+::-webkit-scrollbar-thumb {
+	height: 50px; 
+	width: 50px; 
+	background:rgba(85, 136, 136, .75); 
+	-webkit-border-radius: 8px; 
+	border-radius: 8px; 
+	-webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.1);
+}
