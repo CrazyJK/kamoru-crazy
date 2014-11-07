@@ -41,7 +41,7 @@
 %>
 <c:forEach items="${video.actressList}" var="actress" varStatus="status">
 <span class="${cssClass}" onclick="fnSearch('${actress.name}')" title="${actress}">${actress.name}</span>
-<img src="<c:url value="/resources/magnify${status.count%2}.png"/>" onclick="fnViewActressDetail('${actress.name}')" width="12px">
+<img src="<c:url value="/res/magnify${status.count%2}.png"/>" onclick="fnViewActressDetail('${actress.name}')" width="12px">
 </c:forEach>
 <%
 	} else if (view.equalsIgnoreCase("opus")) {
@@ -54,7 +54,7 @@
 	} else if (view.equalsIgnoreCase("studio")) {
 %>
 <span class="${cssClass}" onclick="fnSearch('${video.studio.name}')" title="${video.studio}">${video.studio.name}</span>
-<img src="<c:url value="/resources/link.png"/>" onclick="fnViewStudioDetail('${video.studio.name}')">
+<img src="<c:url value="/res/link.png"/>" onclick="fnViewStudioDetail('${video.studio.name}')">
 <%
 	} else if (view.equalsIgnoreCase("title")) {
 %>
