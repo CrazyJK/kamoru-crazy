@@ -20,5 +20,9 @@ public enum StudioSort {
 	/**
 	 * video size of a studio
 	 */
-	VIDEO;
+	VIDEO,
+	/**
+	 * sum of video scoring in studio
+	 */
+	SCORE;
 }

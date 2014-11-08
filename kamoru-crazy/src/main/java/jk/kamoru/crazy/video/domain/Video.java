@@ -838,7 +838,7 @@ public class Video implements Comparable<Video>, Serializable, Storage.Element {
 	 */
 	public int getScore() {
 		if (getPlayScore() == 0)
-			return -1;
+			return 0;
 		else
 			return getRankScore() + getPlayScore() + getActressScore() + getSubtitlesScore();
 	}
