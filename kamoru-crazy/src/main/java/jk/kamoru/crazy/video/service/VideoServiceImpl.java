@@ -266,10 +266,7 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public List<Actress> getActressList() {
-		log.trace("");
-		List<Actress> list = videoDao.getActressList();
-		Collections.sort(list);
-		return list;
+		return getActressList(ActressSort.NAME);
 	}
 
 	@Override
@@ -603,22 +600,24 @@ public class VideoServiceImpl implements VideoService {
 		Collections.sort(list, new Comparator<Actress>(){
 
 			@Override
-			public int compare(Actress o1, Actress o2) {
+			public int compare(Actress actress1, Actress actress2) {
 				switch (sort) {
 				case NAME:
-					return StringUtils.compareToIgnoreCase(o1.getName(), o2.getName());
+					return StringUtils.compareToIgnoreCase(actress1.getName(), actress2.getName());
 				case BIRTH:
-					return StringUtils.compareToIgnoreCase(o2.getBirth(), o1.getBirth());
+					return StringUtils.compareToIgnoreCase(actress2.getBirth(), actress1.getBirth());
 				case BODY:
-					return StringUtils.compareToIgnoreCase(o2.getBodySize(), o1.getBodySize());
+					return StringUtils.compareToIgnoreCase(actress2.getBodySize(), actress1.getBodySize());
 				case HEIGHT:
-					return StringUtils.compareToIgnoreCase(o2.getHeight(), o1.getHeight());
+					return StringUtils.compareToIgnoreCase(actress2.getHeight(), actress1.getHeight());
 				case DEBUT:
-					return StringUtils.compareToIgnoreCase(o2.getDebut(), o1.getDebut());
+					return StringUtils.compareToIgnoreCase(actress2.getDebut(), actress1.getDebut());
 				case VIDEO:
-					return o2.getVideoList().size() - o1.getVideoList().size();
+					return actress2.getVideoList().size() - actress1.getVideoList().size();
+				case SCORE:
+					return actress2.getScore() - actress1.getScore();
 				default:
-					return StringUtils.compareToIgnoreCase(o1.getName(), o2.getName());
+					return StringUtils.compareToIgnoreCase(actress1.getName(), actress2.getName());
 				}
 			}
 		});

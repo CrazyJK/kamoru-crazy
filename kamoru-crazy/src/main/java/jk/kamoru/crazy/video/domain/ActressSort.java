@@ -27,5 +27,9 @@ public enum ActressSort {
 	/**
 	 * video size of a actress
 	 */
-	VIDEO;
+	VIDEO,
+	/**
+	 * sum of video score in actress
+	 */
+	SCORE;
 }

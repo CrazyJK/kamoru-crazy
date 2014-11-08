@@ -23,7 +23,7 @@ $(document).ready(function(){
 <input type="search" name="search" id="search" style="width:200px;" class="searchInput" placeHolder="<s:message code="video.search"/>" onkeyup="searchContent(this.value)"/>
 
 <c:forEach items="${sorts}" var="s">
-	<label class="item sort-item"><input type="radio" name="sort" value="${s}" ${s eq sort ? 'checked' : ''}><span><s:message code="actress.${s}"/></span></label>
+	<label class="item sort-item"><input type="radio" name="sort" value="${s}" ${s eq sort ? 'checked' : ''}><span><s:message code="actress.sort.${s}"/></span></label>
 </c:forEach>
 
 </div>
@@ -37,6 +37,7 @@ $(document).ready(function(){
 		<td class="nowrap">${actress.bodySize}</td>
 		<td class="nowrap">${actress.height}</td>
 		<td class="nowrap">${actress.debut}</td>
+		<td class="nowrap">${actress.score}</td>
 		<td class="nowrap">${fn:length(actress.videoList)}</td> 
 		<td class="nowrap">
 			<c:forEach items="${actress.videoList}" var="video">

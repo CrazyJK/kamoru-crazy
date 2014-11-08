@@ -48,6 +48,9 @@ public class Actress implements Serializable, Comparable<Actress> {
 	@JsonIgnore
 	private List<Video>   videoList;
 
+	/**
+	 * is loaded actress infomation
+	 */
 	private boolean loaded;
 
 	public Actress() {
@@ -125,6 +128,17 @@ public class Actress implements Serializable, Comparable<Actress> {
 	
 	public void emptyVideo() {
 		videoList.clear();
+	}
+	/**
+	 * sum of video scoring in actress
+	 * @return
+	 */
+	public int getScore() {
+		int score  = 0;
+		for (Video video : getVideoList()) {
+			score += video.getScore();
+		}
+		return score;
 	}
 	
 }
