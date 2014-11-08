@@ -52,6 +52,8 @@ public class Actress implements Serializable, Comparable<Actress> {
 	 * is loaded actress infomation
 	 */
 	private boolean loaded;
+	
+	private ActressSort sort = ActressSort.NAME;
 
 	public Actress() {
 		studioList = new ArrayList<Studio>();
@@ -69,7 +71,24 @@ public class Actress implements Serializable, Comparable<Actress> {
 	}
 	@Override
 	public int compareTo(Actress comp) {
-		return StringUtils.compareTo(this.getName(), comp.getName());
+		switch (sort) {
+		case NAME:
+			return StringUtils.compareToIgnoreCase(this.getName(), comp.getName());
+		case BIRTH:
+			return StringUtils.compareToIgnoreCase(this.getBirth(), comp.getBirth());
+		case BODY:
+			return StringUtils.compareToIgnoreCase(this.getBodySize(), comp.getBodySize());
+		case HEIGHT:
+			return StringUtils.compareToIgnoreCase(this.getHeight(), comp.getHeight());
+		case DEBUT:
+			return StringUtils.compareToIgnoreCase(this.getDebut(), comp.getDebut());
+		case VIDEO:
+			return this.getVideoList().size() - comp.getVideoList().size();
+		case SCORE:
+			return this.getScore() - comp.getScore();
+		default:
+			return StringUtils.compareToIgnoreCase(this.getName(), comp.getName());
+		}
 	}
 	
 	public boolean contains(String actressName) {

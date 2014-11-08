@@ -20,7 +20,9 @@ try {
 <meta charset="UTF-8" />
 <link rel="shortcut icon" type="image/x-icon" href="<c:url value="/res/img/favicon-kamoru.ico"/>">
 <title><sitemesh:write property='title'>Title goes here</sitemesh:write> - kAmOrU</title>
-<link rel="stylesheet" href="<c:url value="/res/css/deco.css" />" />
+<link rel="stylesheet" href="<c:url value="/res/css/crazy-deco.css" />" />
+<link rel="stylesheet" href="<c:url value="/res/css/common.css" />" />
+<link rel="stylesheet" href="<c:url value="/res/css/scrollbar.css" />" />
 <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="<c:url value="/res/js/common.js" />" type="text/javascript"></script>

@@ -80,11 +80,13 @@ public class VideoController extends AbstractController {
 	 * @return view name
 	 */
 	@RequestMapping(value="/actress", method=RequestMethod.GET)
-	public String actressList(Model model, @RequestParam(value="sort", required=false, defaultValue="NAME") ActressSort sort) {
-		logger.trace("actress");
-		model.addAttribute(videoService.getActressList(sort));
+	public String actressList(Model model, @RequestParam(value="sort", required=false, defaultValue="NAME") ActressSort sort,
+			@RequestParam(value="r", required=false, defaultValue="false") Boolean reverse) {
+		logger.trace("actressList sort={} reverse={}", sort, reverse);
+		model.addAttribute(videoService.getActressList(sort, reverse));
 		model.addAttribute("sorts", ActressSort.values());
 		model.addAttribute("sort", sort);
+		model.addAttribute("reverse", reverse);
 		return "video/actressList";
 	}
 
@@ -151,11 +153,13 @@ public class VideoController extends AbstractController {
 	 * @return view name
 	 */
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String videoList(Model model, @RequestParam(value="sort", required=false, defaultValue="O") Sort sort) {
-		logger.trace("list");
-		model.addAttribute("videoList", videoService.getVideoList(sort));
+	public String videoList(Model model, @RequestParam(value="sort", required=false, defaultValue="O") Sort sort,
+			@RequestParam(value="r", required=false, defaultValue="false") Boolean reverse) {
+		logger.trace("videoList sort={} reverse={}", sort, reverse);
+		model.addAttribute("videoList", videoService.getVideoList(sort, reverse));
 		model.addAttribute("sorts", Sort.values());
 		model.addAttribute("sort", sort);
+		model.addAttribute("reverse", reverse);
 		return "video/videoList";
 	}
 
@@ -222,11 +226,13 @@ public class VideoController extends AbstractController {
 	 * @return view name
 	 */
 	@RequestMapping(value="/studio", method=RequestMethod.GET)
-	public String studioList(Model model, @RequestParam(value="sort", required=false, defaultValue="NAME") StudioSort sort) {
-		logger.trace("studio");
-		model.addAttribute(videoService.getStudioList(sort));
+	public String studioList(Model model, @RequestParam(value="sort", required=false, defaultValue="NAME") StudioSort sort,
+			@RequestParam(value="r", required=false, defaultValue="false") Boolean reverse) {
+		logger.info("studioList sort={} reverse={}", sort, reverse);
+		model.addAttribute(videoService.getStudioList(sort, reverse));
 		model.addAttribute("sorts", StudioSort.values());
 		model.addAttribute("sort", sort);
+		model.addAttribute("reverse", reverse);
 		return "video/studioList";
 	}
 

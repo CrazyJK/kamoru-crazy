@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -168,7 +167,7 @@ public class Video implements Comparable<Video>, Serializable, Storage.Element {
 	 * @return actress list by name sort
 	 */
 	public List<Actress> getActressList() {
-		Collections.sort(actressList);
+//		Collections.sort(actressList);
 		return actressList;
 	}
 	

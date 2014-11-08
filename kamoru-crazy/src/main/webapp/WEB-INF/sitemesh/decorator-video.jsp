@@ -8,6 +8,8 @@
 <meta charset="UTF-8" />
 <title><sitemesh:write property='title'>Title goes here</sitemesh:write> - Crazy</title>
 <link rel="shortcut icon" type="image/x-icon" href="<c:url value="/res/img/favicon-video.ico" />">
+<link rel="stylesheet" href="<c:url value="/res/css/common.css" />" />
+<link rel="stylesheet" href="<c:url value="/res/css/scrollbar.css" />" />
 <link rel="stylesheet" href="<c:url value="/res/css/video-deco.css"   />" />
 <link rel="stylesheet" href="<c:url value="/res/css/video-main.css"   />" />
 <link rel="stylesheet" href="<c:url value="/res/css/video-search.css" />" />

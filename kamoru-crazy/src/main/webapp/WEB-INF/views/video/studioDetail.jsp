@@ -31,7 +31,7 @@ function fnPutStudioInfo() {
 	</dt>
 	<dd>
 		<span class="label-title">Homepage : <input class="studioInfo" type="text" name="homepage" value="${studio.homepage}" /></span>
-		<span class="label-title">Company : <input class="studioInfo" type="text" name="companyname" value="${studio.companyName}" /></span>
+		<span class="label-title">Company : <input class="studioInfo" type="text" name="company" value="${studio.company}" /></span>
 		<span class="button" style="float:right" onclick="fnPutStudioInfo()">Save</span>
 	</dd>
 	<dd>

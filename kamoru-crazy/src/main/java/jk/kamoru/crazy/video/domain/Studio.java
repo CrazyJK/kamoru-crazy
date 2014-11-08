@@ -37,7 +37,7 @@ public class Studio implements Serializable, Comparable<Studio> {
 
 	private String name;
 	private URL    homepage;
-	private String companyName;
+	private String company;
 
 	@XmlTransient
 	@JsonIgnore
@@ -47,6 +47,8 @@ public class Studio implements Serializable, Comparable<Studio> {
 	private List<Actress> actressList;
 
 	private boolean loaded;
+
+	private StudioSort sort = StudioSort.NAME;
 	
 	public Studio() {
 		videoList = new ArrayList<Video>();
@@ -61,7 +63,7 @@ public class Studio implements Serializable, Comparable<Studio> {
 	@Override
 	public String toString() {
 		return String.format("%s %s %s",
-				name, StringUtils.trimToEmpty(homepage), StringUtils.trimToEmpty(companyName));
+				name, StringUtils.trimToEmpty(homepage), StringUtils.trimToEmpty(company));
 	}
 
 	public void addVideo(Video video) {
@@ -85,14 +87,27 @@ public class Studio implements Serializable, Comparable<Studio> {
 		loadInfo();
 		return homepage;
 	}
-	public String getCompanyName() {
+	public String getCompany() {
 		loadInfo();
-		return companyName;
+		return company;
 	}
 
 	@Override
 	public int compareTo(Studio comp) {
-		return StringUtils.compareTo(this.getName().toLowerCase(), comp.getName().toLowerCase());
+		switch (sort) {
+		case NAME:
+			return StringUtils.compareToIgnoreCase(this.getName(), comp.getName());
+		case HOMEPAGE:
+			return StringUtils.compareTo(this.getHomepage(), comp.getHomepage());
+		case COMPANY:
+			return StringUtils.compareToIgnoreCase(this.getCompany(), comp.getCompany());
+		case VIDEO:
+			return this.getVideoList().size() - comp.getVideoList().size();
+		case SCORE:
+			return this.getScore() - comp.getScore();
+		default:
+			return StringUtils.compareToIgnoreCase(this.getName(), comp.getName());
+		}
 	}
 
 	private void loadInfo() {
@@ -103,7 +118,7 @@ public class Studio implements Serializable, Comparable<Studio> {
 			} catch (MalformedURLException e) {
 				// do nothing!
 			}
-			this.companyName = info.get("COMPANYNAME");
+			this.company = info.get("COMPANY");
 			loaded = true;
 		}
 	}
@@ -125,5 +140,6 @@ public class Studio implements Serializable, Comparable<Studio> {
 			score += video.getScore();
 		return score;
 	}
+	
 	
 }

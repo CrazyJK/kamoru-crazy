@@ -266,7 +266,7 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public List<Actress> getActressList() {
-		return getActressList(ActressSort.NAME);
+		return getActressList(ActressSort.NAME, false);
 	}
 
 	@Override
@@ -593,71 +593,41 @@ public class VideoServiceImpl implements VideoService {
 	}
 	
 	@Override
-	public List<Actress> getActressList(final ActressSort sort) {
-		log.trace("sort={}", sort);
+	public List<Actress> getActressList(ActressSort sort, boolean reverse) {
+		log.trace("sort={} reverse={}", sort, reverse);
 		List<Actress> list = videoDao.getActressList();
-//		List<Actress> list = getActressListOfVideoes(videoDao.getVideoList());
-		Collections.sort(list, new Comparator<Actress>(){
-
-			@Override
-			public int compare(Actress actress1, Actress actress2) {
-				switch (sort) {
-				case NAME:
-					return StringUtils.compareToIgnoreCase(actress1.getName(), actress2.getName());
-				case BIRTH:
-					return StringUtils.compareToIgnoreCase(actress2.getBirth(), actress1.getBirth());
-				case BODY:
-					return StringUtils.compareToIgnoreCase(actress2.getBodySize(), actress1.getBodySize());
-				case HEIGHT:
-					return StringUtils.compareToIgnoreCase(actress2.getHeight(), actress1.getHeight());
-				case DEBUT:
-					return StringUtils.compareToIgnoreCase(actress2.getDebut(), actress1.getDebut());
-				case VIDEO:
-					return actress2.getVideoList().size() - actress1.getVideoList().size();
-				case SCORE:
-					return actress2.getScore() - actress1.getScore();
-				default:
-					return StringUtils.compareToIgnoreCase(actress1.getName(), actress2.getName());
-				}
-			}
-		});
+		for (Actress actress : list)
+			actress.setSort(sort);
+		if (reverse)
+			Collections.sort(list, Collections.reverseOrder());
+		else
+			Collections.sort(list);
 		return list;
 	}
 
 	@Override
-	public List<Studio> getStudioList(final StudioSort sort) {
-		log.trace("sort={}", sort);
+	public List<Studio> getStudioList(StudioSort sort, boolean reverse) {
+		log.trace("sort={} reverse={}", sort, reverse);
 		List<Studio> list = videoDao.getStudioList();
-//		List<Studio> list = getStudioListOfVideoes(videoDao.getVideoList());
-		Collections.sort(list, new Comparator<Studio>(){
-
-			@Override
-			public int compare(Studio studio1, Studio studio2) {
-				switch (sort) {
-				case NAME:
-					return StringUtils.compareToIgnoreCase(studio1.getName(), studio2.getName());
-				case HOMEPAGE:
-					return StringUtils.compareTo(studio2.getHomepage(), studio1.getHomepage());
-				case COMPANY:
-					return StringUtils.compareToIgnoreCase(studio2.getCompanyName(), studio1.getCompanyName());
-				case VIDEO:
-					return studio2.getVideoList().size() - studio1.getVideoList().size();
-				case SCORE:
-					return studio2.getScore() - studio1.getScore();
-				default:
-					return StringUtils.compareToIgnoreCase(studio1.getName(), studio2.getName());
-				}
-			}
-		});
+		for (Studio studio : list)
+			studio.setSort(sort);
+		if (reverse)
+			Collections.sort(list, Collections.reverseOrder());
+		else
+			Collections.sort(list);
 		return list;
 	}
 
 	@Override
-	public List<Video> getVideoList(Sort sort) {
+	public List<Video> getVideoList(Sort sort, boolean reverse) {
+		log.trace("sort={} reverse={}", sort, reverse);
 		List<Video> list = videoDao.getVideoList();
 		for (Video video : list) 
 			video.setSortMethod(sort);
-		Collections.sort(list, Collections.reverseOrder());
+		if (reverse)
+			Collections.sort(list, Collections.reverseOrder());
+		else
+			Collections.sort(list);
 		return list;
 	}
 

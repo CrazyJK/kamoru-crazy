@@ -27,7 +27,7 @@
 %>
 <label 
 	class="item <%=itemCssClass %>" 
-	title="${studio.homepage} ${studio.companyName} Actress:${fn:length(studio.actressList)}">
+	title="${studio.homepage} ${studio.company} Actress:${fn:length(studio.actressList)}">
 	<form:checkbox path="selectedStudio" value="${studio.name}" cssClass="item-checkbox"/>
 	<span>${studio.name}(${fn:length(studio.videoList)})</span>
 </label>
@@ -37,7 +37,7 @@
 <span	
 	onclick="fnViewStudioDetail('${studio.name}')" 
 	class="<%=itemCssClass %>" 
-	title="${studio.homepage} ${studio.companyName} Actress:${fn:length(studio.actressList)}">
+	title="${studio.homepage} ${studio.company} Actress:${fn:length(studio.actressList)}">
 	${studio.name}(${fn:length(studio.videoList)})
 </span>
 <%

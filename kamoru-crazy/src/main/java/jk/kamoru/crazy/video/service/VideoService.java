@@ -177,21 +177,24 @@ public interface VideoService {
 
 	/**get all sorted actress list
 	 * @param sort
+	 * @param reverse 
 	 * @return actress list
 	 */
-	List<Actress> getActressList(ActressSort sort);
+	List<Actress> getActressList(ActressSort sort, boolean reverse);
 
 	/**get all sorted studio list
 	 * @param sort
+	 * @param reverse 
 	 * @return studio list
 	 */
-	List<Studio> getStudioList(StudioSort sort);
+	List<Studio> getStudioList(StudioSort sort, boolean reverse);
 
 	/**get all sorted video list
 	 * @param sort
+	 * @param reverse 
 	 * @return video list
 	 */
-	List<Video> getVideoList(Sort sort);
+	List<Video> getVideoList(Sort sort, boolean reverse);
 
 	/**get play count range
 	 * @return play count list
