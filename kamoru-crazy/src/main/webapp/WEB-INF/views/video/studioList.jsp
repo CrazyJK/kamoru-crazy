@@ -24,7 +24,8 @@ $(document).ready(function(){
 <input type="search" name="search" id="search" style="width:200px;" class="searchInput" placeHolder="<s:message code="video.search"/>" onkeyup="searchContent(this.value)"/>
 
 <c:forEach items="${sorts}" var="s">
-	<label class="item sort-item"><input type="radio" name="sort" value="${s}" ${s eq sort ? 'checked' : ''}><span><s:message code="studio.${s}"/></span></label>
+	<label class="item sort-item"><input type="radio" name="sort" value="${s}" ${s eq sort ? 'checked' : ''}>
+		<span><s:message code="studio.sort.${s}"/></span></label>
 </c:forEach>
 
 </div>
@@ -35,6 +36,7 @@ $(document).ready(function(){
 	<tr><td class="nowrap">${status.count}</td>
 		<td class="nowrap" onclick="fnViewStudioDetail('${studio.name}')">${studio.name}</td>
 		<td class="nowrap"><a href="<s:url value="${studio.homepage}" />" target="_blank">${studio.homepage}</a></td>
+		<td class="nowrap">${studio.score}</td>
 		<td class="nowrap">${fn:length(studio.videoList)}</td>
 		<td class="nowrap">
 			<c:forEach items="${studio.videoList}" var="video">

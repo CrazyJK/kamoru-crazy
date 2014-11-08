@@ -632,18 +632,20 @@ public class VideoServiceImpl implements VideoService {
 		Collections.sort(list, new Comparator<Studio>(){
 
 			@Override
-			public int compare(Studio o1, Studio o2) {
+			public int compare(Studio studio1, Studio studio2) {
 				switch (sort) {
 				case NAME:
-					return StringUtils.compareToIgnoreCase(o1.getName(), o2.getName());
+					return StringUtils.compareToIgnoreCase(studio1.getName(), studio2.getName());
 				case HOMEPAGE:
-					return StringUtils.compareTo(o2.getHomepage(), o1.getHomepage());
+					return StringUtils.compareTo(studio2.getHomepage(), studio1.getHomepage());
 				case COMPANY:
-					return StringUtils.compareToIgnoreCase(o2.getCompanyName(), o1.getCompanyName());
+					return StringUtils.compareToIgnoreCase(studio2.getCompanyName(), studio1.getCompanyName());
 				case VIDEO:
-					return o2.getVideoList().size() - o1.getVideoList().size();
+					return studio2.getVideoList().size() - studio1.getVideoList().size();
+				case SCORE:
+					return studio2.getScore() - studio1.getScore();
 				default:
-					return StringUtils.compareToIgnoreCase(o1.getName(), o2.getName());
+					return StringUtils.compareToIgnoreCase(studio1.getName(), studio2.getName());
 				}
 			}
 		});
