@@ -223,7 +223,7 @@ $(document).ready(function(){
 	<article>
 		<table class="video-table" style="background-color:lightgray">
 			<tr>
-				<th class="nowrap"><s:message code="video.Score"/></th>
+				<th class="nowrap"><s:message code="video.score"/></th>
 				<th class="nowrap"><s:message code="video.size"/></th>
 				<th class="nowrap"><s:message code="video.length"/></th>
 				<th class="nowrap"><s:message code="video.video"/></th>
