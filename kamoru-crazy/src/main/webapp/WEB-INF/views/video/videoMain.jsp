@@ -9,9 +9,10 @@
 <head>
 <title><s:message code="video.video"/></title>
 <link  href="<c:url value="http://vjs.zencdn.net/c/video-js.css"/>" rel="stylesheet"/>
+<link  href="<c:url value="/res/css/video-slides.css"/>" rel="stylesheet"/>
+<script src="<c:url value="/res/js/videoMain.js"/>" type="text/javascript"></script>
 <script src="<c:url value="http://vjs.zencdn.net/c/video.js"/>"></script>
 <script src="<c:url value="http://slidesjs.com/examples/standard/js/jquery.slides.min.js"/>"></script>
-<script src="<c:url value="/res/js/videoMain.js"/>" type="text/javascript"></script>
 <script type="text/javascript">
 var opusArray = ${opusArray};
 var bgImageCount = ${bgImageCount};

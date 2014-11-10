@@ -8,12 +8,11 @@
 <meta charset="UTF-8" />
 <title><sitemesh:write property='title'>Title goes here</sitemesh:write> - Crazy</title>
 <link rel="shortcut icon" type="image/x-icon" href="<c:url value="/res/img/favicon-video.ico" />">
-<link rel="stylesheet" href="<c:url value="/res/css/common.css" />" />
-<link rel="stylesheet" href="<c:url value="/res/css/scrollbar.css" />" />
-<link rel="stylesheet" href="<c:url value="/res/css/video-deco.css"   />" />
-<link rel="stylesheet" href="<c:url value="/res/css/video-main.css"   />" />
-<link rel="stylesheet" href="<c:url value="/res/css/video-search.css" />" />
-<link rel="stylesheet" href="<c:url value="/res/css/video-slides.css" />" />
+<link rel="stylesheet" href="<c:url value="/res/css/common.css"/>" />
+<link rel="stylesheet" href="<c:url value="/res/css/scrollbar.css"/>" />
+<link rel="stylesheet" href="<c:url value="/res/css/video-deco.css"/>" />
+<link rel="stylesheet" href="<c:url value="/res/css/video-main.css"/>" />
+<link rel="stylesheet" href="<c:url value="/res/css/video-common.css"/>" />
 <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="<c:url value="/res/js/common.js"/>" type="text/javascript"></script>
@@ -70,7 +69,7 @@ function showNav() {
 		} */
 	});
 	if(!found)
-		$("#deco_nav").css("display", "none");
+		$("nav#deco_nav").css("display", "none");
 }
 /**
  * post 액션
@@ -90,20 +89,19 @@ function actionFrame(url, method) {
 <body>
  
 <nav id="deco_nav">
-<ul>
-	<li class="menu"><a href="<c:url value="/video"/>"><s:message code="video.main"/></a>
-	<li class="menu"><a href="<c:url value="/video/search"/>"><s:message code="video.search"/></a>
-	<li class="menu"><a href="<c:url value="/video/list"/>"><s:message code="video.video"/></a>
-	<li class="menu"><a href="<c:url value="/video/actress"/>"><s:message code="video.actress"/></a>
-	<li class="menu"><a href="<c:url value="/video/studio"/>"><s:message code="video.studio"/></a>
-	<li class="menu"><a href="<c:url value="/image"/>"><s:message code="video.image"/></a>
-	<li class="menu"><a href="<c:url value="/image/canvas"/>"><s:message code="default.canvas"/></a>
-	<li class="menu"><a href="<c:url value="/video/briefing"/>"><s:message code="video.briefing"/></a>
-	<li class="menu"><a href="<c:url value="/video/torrent"/>"><s:message code="video.torrent"/></a>
-	<%-- <li class="menu"><a href="<c:url value="/video/manager"/>"><s:message code="video.manager"/></a> --%>
-	<li class="menu"><a href="<c:url value="/video/parseToTitle"/>"><s:message code="video.parseToTitle" text="parseToTitle"/></a>
-	<li class="menu"><a href="<c:url value="/home"/>"><s:message code="default.home"/></a>
-</ul>
+	<ul>
+		<li class="menu"><a href="<c:url value="/video"/>"><s:message code="video.main"/></a>
+		<li class="menu"><a href="<c:url value="/video/search"/>"><s:message code="video.search"/></a>
+		<li class="menu"><a href="<c:url value="/video/list"/>"><s:message code="video.video"/></a>
+		<li class="menu"><a href="<c:url value="/video/actress"/>"><s:message code="video.actress"/></a>
+		<li class="menu"><a href="<c:url value="/video/studio"/>"><s:message code="video.studio"/></a>
+		<li class="menu"><a href="<c:url value="/image"/>"><s:message code="video.image"/></a>
+		<li class="menu"><a href="<c:url value="/image/canvas"/>"><s:message code="default.canvas"/></a>
+		<li class="menu"><a href="<c:url value="/video/briefing"/>"><s:message code="video.briefing"/></a>
+		<li class="menu"><a href="<c:url value="/video/torrent"/>"><s:message code="video.torrent"/></a>
+		<li class="menu"><a href="<c:url value="/video/parseToTitle"/>"><s:message code="video.parseToTitle"/></a>
+		<li class="menu"><a href="<c:url value="/home"/>"><s:message code="default.home"/></a>
+	</ul>
 </nav>
 
 <sitemesh:write property="body">Body goes here. Blah blah blah.</sitemesh:write>

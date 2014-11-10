@@ -10,18 +10,6 @@
 <head>
 <title>Parse to Title</title>
 <style type="text/css">
-.mark {
-	background-color:orange;
-	background: url('<c:url value="/res/img/yes_check.png"/>');
-	background-size: 30px 25px;
-	background-repeat: no-repeat;
-}
-.fullname {
-	width:700px; border:0; font-size: 11px; 
-}
-.fullname:focus {
-	background-color:yellow;
-}
 .titleArea {
 	width:100%;
 	font-size:11px;
@@ -57,7 +45,7 @@ function fnMarkChoice(opus) {
 			<td align="right">${status.count}</td>
 			<td>
 				<span class="label">
-					<input class="fullname" value="${title}"/>
+					<input class="text" value="${title}"/>
 					<a onclick="fnMarkChoice('${title.opus}')" href="${arzon}${title.opus}" target="_blank" class="link">Get Info</a>
 				</span>
 				<c:if test="${title.check}">${title.checkDesc}</c:if>

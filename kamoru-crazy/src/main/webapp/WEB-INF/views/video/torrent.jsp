@@ -9,12 +9,6 @@
 <head>
 <title><s:message code="video.torrent"/></title>
 <style type="text/css">
-.text {
-	font-size: 11px; border:0; background-color: lightgray;
-}
-.text:focus {
-	background-color:yellow;
-}
 .studio {
 	width: 60px;
 }
@@ -24,16 +18,13 @@
 .title {
 	width: 300px;
 }
-.mark {
-	background-color:orange;
-	background: url('<c:url value="/res/img/yes_check.png"/>');
-	background-size: 30px 25px;
-	background-repeat: no-repeat;
-}
 </style>
 <script type="text/javascript">
+var totalCandidatedVideo = 0;
+
 $(document).ready(function(){
 	$("td").addClass("nowrap");
+	$("#totalCandidatedVideo").html("Total candidated video : " + totalCandidatedVideo);
 });
 
 /**
@@ -41,8 +32,6 @@ $(document).ready(function(){
  */
 function fnMarkChoice(opus) {
 	$("#check-" + opus).addClass("mark");
-	//$("#check-" + opus).hide();
-	//$("#check-" + opus + " > *").attr("disabled",true);
 }
 function searchInput(keyword) {
 	$("div#content_div input").each(function() {
@@ -71,6 +60,8 @@ function fnGoSearch(opus) {
 		class="searchInput" placeHolder="<s:message code="video.search"/>" 
 		onkeyup="searchInput(this.value)"/>
 	<!-- <a href="http://www.akiba-online.com" target="_blank">www.akiba-online.com</a> -->
+	<span id="totalCandidatedVideo"></span>
+	
 	<span class="button" onclick='$(".newWin").toggle(); $(".popup").toggle();' style="float:right;">Popup mode</span>
 </div>
 
@@ -103,6 +94,9 @@ function fnGoSearch(opus) {
 					<input type="submit" value="${candidate.name}" onclick="fnMarkChoice('${video.opus}')"/>
 					<input type="hidden" name="path" value="${candidate.absolutePath}"/>
 				</form>
+				<script type="text/javascript">
+					totalCandidatedVideo += 1;	
+				</script>
 				</c:forEach>
 			</td>
 		</tr>

@@ -1,9 +1,5 @@
 @CHARSET "UTF-8";
 /* Dom elements */
-* {
-	font-family: "Malgun Gothic", '맑은 고딕', '나눔고딕', 'Comic Sans MS', '나눔고딕코딩';
-	/* font-size:15px;  */
-}
 input[type=range] { 
 	background-color: silver; 
 	opacity: 0.75; 
@@ -296,18 +292,6 @@ li,
 .nonExist {
 	color:gray;
 }
-.onclick {
-	cursor:pointer;
-/* 	background-image: url('/kamoru/res/img/link.png');
-	background-repeat:no-repeat; 
-	background-position:right center; 
-	padding-right: 15px; */
-}
-.onclick:hover {
-	color:orange; 
-	text-decoration:none; 
-	text-shadow:1px 1px 1px black;
-}
 .video-card {
 	width:190px;
 	background-color:rgba(255, 255, 255, 0.25);
@@ -388,38 +372,4 @@ a.link:hover {
 	color: orange;
 	text-decoration: none;
 	text-shadow: 2px 2px 2px #123;
-}
-
-.deletionCandidate {
-	background-color:gray;
-}
-
-/* Webkit용 scrollbar ref. http://circlash.tistory.com/610 */
-::-webkit-scrollbar {
-	width: 8px; 
-	height: 8px; 
-	border: 0px solid #fff; 
-	background-color: rgba(255,255,255,0);
-}
-::-webkit-scrollbar-button:start:decrement, 
-::-webkit-scrollbar-button:end:increment {
-	display: block; 
-	height: 10px; 
-	/* background: url('./images/bg.png') #efefef; */
-	background-color: rgba(255,255,255,0);
-}
-::-webkit-scrollbar-track {
-	background-color: rgba(255,255,255,0);
-	/* background: #efefef; */ 
-	-webkit-border-radius: 10px; 
-	border-radius:10px; 
-	-webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0);
-}
-::-webkit-scrollbar-thumb {
-	height: 50px; 
-	width: 50px; 
-	background: rgba(255,140,0,.5); 
-	-webkit-border-radius: 8px; 
-	border-radius: 8px; 
-	-webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.1);
 }

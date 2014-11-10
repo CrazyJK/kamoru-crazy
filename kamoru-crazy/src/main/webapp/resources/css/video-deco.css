@@ -2,6 +2,7 @@
 body {
 	margin:0;
 }
+
 #deco_nav {
 	position: absolute;
 	top: 0;
@@ -30,40 +31,7 @@ body {
 	text-decoration: none;
 	text-shadow: 1px 1px 1px navy;
 }
-.menu {
-	background-color: white;
-}
-.menu a {
- 	color: navy;
-	font-family: "Malgun Gothic";
-}
-.menu-selected {
-	background-color: orange;
-}
-.menu-selected a {
-	color: white;
-}
 
-* [onclick] {
-	cursor:pointer;
-}
-* [onclick]:hover {
-	color:orange; 
-	text-decoration:none; 
-	text-shadow:1px 1px 1px black;
-}
-.code-view {
-	font-size:9pt;
-}
-.code-name {
-	color:blue;
-}
-.code-value {
-	color: teal;
-}
-.code-clazz {
-	color: navy;
-}
 div#content_div {
 	overflow:auto; 
 	/* text-align:center; */ 
