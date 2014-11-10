@@ -41,7 +41,7 @@ Unseen[<s:eval expression="@prop['score.ratio.unseen']"/>]">Ratio</span>
 	<table class="video-table" style="background-color:lightgray">
 		<c:forEach items="${videoList}" var="video" varStatus="status">
 		<tr>
-			<td align="right">${status.count}</td>
+			<td class="number">${status.count}</td>
 			<td class="${sort eq 'S' ? 'label' : ''}"><span onclick="fnViewStudioDetail('${video.studio.name}')">${video.studio.name}</span></td>
 			<td class="${sort eq 'O' ? 'label' : ''}" width="60px"><span onclick="fnViewVideoDetail('${video.opus}')">${video.opus}</span></td>
 			<td class="${sort eq 'T' ? 'label' : ''}">${video.title}</td>

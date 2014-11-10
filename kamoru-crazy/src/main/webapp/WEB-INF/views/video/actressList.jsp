@@ -34,15 +34,15 @@ $(document).ready(function(){
 	<table class="video-table" style="background-color:lightgray">
 		<c:forEach items="${actressList}" var="actress" varStatus="status">
 		<tr>
-			<td class="nowrap">${status.count}</td>
-			<td class="nowrap ${sort eq 'NAME' ? 'label' : ''}" onclick="fnViewActressDetail('${actress.name}')">${actress.name}</td>
-			<td class="nowrap ${sort eq 'BIRTH' ? 'label' : ''}">${actress.birth}</td>
-			<td class="nowrap ${sort eq 'BODY' ? 'label' : ''}">${actress.bodySize}</td>
-			<td class="nowrap ${sort eq 'HEIGHT' ? 'label' : ''}">${actress.height}</td>
-			<td class="nowrap ${sort eq 'DEBUT' ? 'label' : ''}">${actress.debut}</td>
-			<td class="nowrap number ${sort eq 'VIDEO' ? 'label' : ''}">${fn:length(actress.videoList)}</td> 
-			<td class="nowrap number ${sort eq 'SCORE' ? 'label' : ''}">${actress.score}</td>
-			<td class="nowrap">
+			<td class="number">${status.count}</td>
+			<td class="${sort eq 'NAME' ? 'label' : ''}" onclick="fnViewActressDetail('${actress.name}')">${actress.name}</td>
+			<td class="${sort eq 'BIRTH' ? 'label' : ''}">${actress.birth}</td>
+			<td class="${sort eq 'BODY' ? 'label' : ''}">${actress.bodySize}</td>
+			<td class="${sort eq 'HEIGHT' ? 'label' : ''}">${actress.height}</td>
+			<td class="${sort eq 'DEBUT' ? 'label' : ''}">${actress.debut}</td>
+			<td class="number ${sort eq 'VIDEO' ? 'label' : ''}">${fn:length(actress.videoList)}</td> 
+			<td class="number ${sort eq 'SCORE' ? 'label' : ''}">${actress.score}</td>
+			<td>
 				<c:forEach items="${actress.videoList}" var="video">
 				<span class="label" title="${video.title}" onclick="fnViewVideoDetail('${video.opus}')">${video.opus}</span>
 				</c:forEach>

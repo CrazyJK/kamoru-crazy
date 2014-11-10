@@ -22,22 +22,6 @@ a:hover {
 	text-shadow: 2px 2px 2px #123;
 }
 
-.menu {
-	background-color: white;
-}
-.menu a {
- 	color: navy;
-	font-family: "Malgun Gothic";
-}
-.menu-selected {
-	font-weight:bold;
-	text-shadow: 1px 1px 2px orange;
-	background-color: orange;
-}
-.menu-selected a {
-	color: white;
-}
-
 .selected {
 	color: blue;
 }

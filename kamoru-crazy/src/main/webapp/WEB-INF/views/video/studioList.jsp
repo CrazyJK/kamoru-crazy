@@ -34,13 +34,13 @@ $(document).ready(function(){
 	<table class="video-table" style="background-color:lightgray">
 		<c:forEach items="${studioList}" var="studio" varStatus="status">
 		<tr>
-			<td class="nowrap">${status.count}</td>
-			<td class="nowrap ${sort eq 'NAME' ? 'label' : ''}" onclick="fnViewStudioDetail('${studio.name}')">${studio.name}</td>
-			<td class="nowrap ${sort eq 'HOMEPAGE' ? 'label' : ''}"><a href="<s:url value="${studio.homepage}" />" target="_blank">${studio.homepage}</a></td>
-			<td class="nowrap ${sort eq 'COMPANY' ? 'label' : ''}">${studio.company}</td>
-			<td class="nowrap number ${sort eq 'VIDEO' ? 'label' : ''}">${fn:length(studio.videoList)}</td>
-			<td class="nowrap number ${sort eq 'SCORE' ? 'label' : ''}">${studio.score}</td>
-			<td class="nowrap">
+			<td class="number">${status.count}</td>
+			<td class="${sort eq 'NAME' ? 'label' : ''}" onclick="fnViewStudioDetail('${studio.name}')">${studio.name}</td>
+			<td class="${sort eq 'HOMEPAGE' ? 'label' : ''}"><a href="<s:url value="${studio.homepage}" />" target="_blank">${studio.homepage}</a></td>
+			<td class="${sort eq 'COMPANY' ? 'label' : ''}">${studio.company}</td>
+			<td class="number ${sort eq 'VIDEO' ? 'label' : ''}">${fn:length(studio.videoList)}</td>
+			<td class="number ${sort eq 'SCORE' ? 'label' : ''}">${studio.score}</td>
+			<td>
 			<c:forEach items="${studio.videoList}" var="video">
 				<span class="label" title="${video.title}" onclick="fnViewVideoDetail('${video.opus}')">${video.opus}</span>
 			</c:forEach>

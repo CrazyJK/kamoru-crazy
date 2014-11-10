@@ -37,10 +37,10 @@ ol.items li {
 }
 
 .mark {
-	background-color:orange;
-	background: url('<c:url value="/res/img/yes_check.png"/>');
+	background-color: green;
+	/* background: url('<c:url value="/res/img/yes_check.png"/>');
 	background-size: 30px 25px;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat; */
 }
 .text {
 	font-size: 11px; border:0; background-color: lightgray;

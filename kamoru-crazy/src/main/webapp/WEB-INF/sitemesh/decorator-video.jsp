@@ -64,9 +64,6 @@ function showNav() {
 			$(this).parent().addClass("menu-selected");
 			found = true;
 		}
-		/* else {
-			$(this).parent().addClass("menu");
-		} */
 	});
 	if(!found)
 		$("nav#deco_nav").css("display", "none");
@@ -90,17 +87,17 @@ function actionFrame(url, method) {
  
 <nav id="deco_nav">
 	<ul>
-		<li class="menu"><a href="<c:url value="/video"/>"><s:message code="video.main"/></a>
-		<li class="menu"><a href="<c:url value="/video/search"/>"><s:message code="video.search"/></a>
-		<li class="menu"><a href="<c:url value="/video/list"/>"><s:message code="video.video"/></a>
-		<li class="menu"><a href="<c:url value="/video/actress"/>"><s:message code="video.actress"/></a>
-		<li class="menu"><a href="<c:url value="/video/studio"/>"><s:message code="video.studio"/></a>
-		<li class="menu"><a href="<c:url value="/image"/>"><s:message code="video.image"/></a>
-		<li class="menu"><a href="<c:url value="/image/canvas"/>"><s:message code="default.canvas"/></a>
-		<li class="menu"><a href="<c:url value="/video/briefing"/>"><s:message code="video.briefing"/></a>
-		<li class="menu"><a href="<c:url value="/video/torrent"/>"><s:message code="video.torrent"/></a>
-		<li class="menu"><a href="<c:url value="/video/parseToTitle"/>"><s:message code="video.parseToTitle"/></a>
-		<li class="menu"><a href="<c:url value="/home"/>"><s:message code="default.home"/></a>
+		<li><a href="<c:url value="/video"/>"><s:message code="video.main"/></a>
+		<li><a href="<c:url value="/video/search"/>"><s:message code="video.search"/></a>
+		<li><a href="<c:url value="/video/list"/>"><s:message code="video.video"/></a>
+		<li><a href="<c:url value="/video/actress"/>"><s:message code="video.actress"/></a>
+		<li><a href="<c:url value="/video/studio"/>"><s:message code="video.studio"/></a>
+		<li><a href="<c:url value="/image"/>"><s:message code="video.image"/></a>
+		<li><a href="<c:url value="/image/canvas"/>"><s:message code="default.canvas"/></a>
+		<li><a href="<c:url value="/video/briefing"/>"><s:message code="video.briefing"/></a>
+		<li><a href="<c:url value="/video/torrent"/>"><s:message code="video.torrent"/></a>
+		<li><a href="<c:url value="/video/parseToTitle"/>"><s:message code="video.parseToTitle"/></a>
+		<li><a href="<c:url value="/home"/>"><s:message code="default.home"/></a>
 	</ul>
 </nav>
 

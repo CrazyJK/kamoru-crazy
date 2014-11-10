@@ -237,13 +237,17 @@ function fnRandomVideoView_Slide() {
 }
 
 function searchContent(keyword) {
-	$("div#content_div table tr td:nth-child(2)").each(function() {
-		if ($(this).text().toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
-			$(this).parent().show();
-		}
-		else {
-			$(this).parent().hide();
-		}
+	$("div#content_div table tr").each(function() {
+		var found = false;
+		$(this).children().each(function() {
+			if ($(this).text().toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
+				found = true;
+			}
+		});
+		if (found)
+			$(this).show();
+		else
+			$(this).hide();
 	});
 }
 
