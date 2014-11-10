@@ -330,7 +330,8 @@ div#actressDiv {
 }
 .video-table {
 	width:100%; 
-	background-color:transparent; 
+	background-color:transparent;
+	background-color:lightgray; 
 	opacity: 0.75; 
 }
 .video-table tr:hover {
@@ -340,8 +341,7 @@ div#actressDiv {
 .video-table td {
 	font-size: 12px;
 }
-.video-table th.nowrap,
-.video-table td.nowrap {
+tr.nowrap td {
 	white-space:nowrap;
 }
 .center {

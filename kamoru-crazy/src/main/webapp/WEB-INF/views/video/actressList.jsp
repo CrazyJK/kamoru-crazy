@@ -30,10 +30,10 @@ $(document).ready(function(){
 	</c:forEach>
 </div>
 
-<div id="content_div" class="div-box" style="overflow:auto;">
-	<table class="video-table" style="background-color:lightgray">
+<div id="content_div" class="div-box">
+	<table class="video-table">
 		<c:forEach items="${actressList}" var="actress" varStatus="status">
-		<tr>
+		<tr class="nowrap">
 			<td class="number">${status.count}</td>
 			<td class="${sort eq 'NAME' ? 'label' : ''}" onclick="fnViewActressDetail('${actress.name}')">${actress.name}</td>
 			<td class="${sort eq 'BIRTH' ? 'label' : ''}">${actress.birth}</td>
