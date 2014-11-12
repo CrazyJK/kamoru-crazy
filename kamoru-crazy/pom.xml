@@ -20,7 +20,7 @@
 		<jackson-mapper-asl-version>1.9.12</jackson-mapper-asl-version>
 		<imgscalr-lib-version>4.2</imgscalr-lib-version>
 		<javax.inject-version>1</javax.inject-version>
-		<sitemesh-version>3.0-alpha-2</sitemesh-version>
+		<sitemesh-version>3.0.0</sitemesh-version>
 		<jstl-version>1.2</jstl-version>
 		<jsp-api-version>2.1</jsp-api-version>
 		<ehcache-core-version>2.5.0</ehcache-core-version>
