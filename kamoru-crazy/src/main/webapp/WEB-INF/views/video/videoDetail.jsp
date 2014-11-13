@@ -62,7 +62,8 @@ function fnToggleRenameForm() {
 	
 	<dd>
 		<c:forEach items="${video.actressList}" var="actress">
-		<span class="label-large actressSpan" onclick="fnViewActressDetail('${actress.name}')">${actress.name} (${fn:length(actress.videoList)})</span>
+		<span class="label-large actressSpan" onclick="fnViewActressDetail('${actress.name}')">
+			${actress.name} (${fn:length(actress.videoList)}), Score ${actress.score}</span>
 		<div style="padding-left:60px;">
 			<ul>
 			<c:forEach items="${actress.videoList}" var="video">

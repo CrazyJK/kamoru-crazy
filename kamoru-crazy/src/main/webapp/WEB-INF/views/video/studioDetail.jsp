@@ -27,6 +27,7 @@ function fnPutStudioInfo() {
 <dl class="dl-detail">
 	<dt class="label-large center">
 		<input class="studioInfo" type="text" name="newname" value="${studio.name}" id="newName" />
+		<span>Score ${studio.score}</span>
 		<span  class="button" style="float:right" onclick="fnRenameTo()">Rename</span>
 	</dt>
 	<dd>
@@ -40,7 +41,8 @@ function fnPutStudioInfo() {
 	<dd>
 		<div style="padding-left:60px;">
 		<c:forEach items="${studio.actressList}" var="actress">
-			<span class="label" onclick="fnViewActressDetail('${actress.name}')">${actress.name}(${fn:length(actress.videoList)})</span>
+			<span class="label" onclick="fnViewActressDetail('${actress.name}')">
+				${actress.name}(${fn:length(actress.videoList)}), Score ${actress.score}</span>
 		</c:forEach>
 		</div>
 	</dd>
