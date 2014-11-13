@@ -12,7 +12,7 @@
 var totalCandidatedVideo = 0;
 
 $(document).ready(function(){
-	$("td").addClass("nowrap");
+//	$("td").addClass("nowrap");
 	$("#totalCandidatedVideo").html(totalCandidatedVideo);
 });
 
@@ -49,9 +49,9 @@ function fnGoSearch(opus) {
 </div>
 
 <div id="content_div" class="div-box" style="overflow:auto;">
-	<table class="video-table" style="background-color:lightgray">
+	<table class="video-table">
 		<c:forEach items="${videoList}" var="video" varStatus="status">
-		<tr id="check-${video.opus}">
+		<tr id="check-${video.opus}" class="nowrap">
 			<td class="number">
 				${status.count}
 			</td>

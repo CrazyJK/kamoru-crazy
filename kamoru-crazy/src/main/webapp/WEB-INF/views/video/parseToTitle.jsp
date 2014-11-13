@@ -39,16 +39,16 @@ function fnMarkChoice(opus) {
 </div>
 
 <div id="content_div" class="div-box" style="overflow:auto;">
-	<table class="video-table" style="background-color:lightgray; list-style: none;">
+	<table class="video-table">
 		<c:forEach items="${titleList}" var="title" varStatus="status">
 		<tr id="check-${title.opus}" style="font-size:11px; color:blue;">
-			<td align="right">${status.count}</td>
+			<td align="right"><span>${status.count}</span></td>
 			<td>
 				<span class="label">
-					<input class="text" value="${title}"/>
+					<input class="text" style="width:600px;" value="${title}"/>
 					<a onclick="fnMarkChoice('${title.opus}')" href="${arzon}${title.opus}" target="_blank" class="link">Get Info</a>
 				</span>
-				<c:if test="${title.check}">${title.checkDesc}</c:if>
+				<c:if test="${title.check}"><span>${title.checkDesc}</span></c:if>
 			</td>
 		</tr>
 		</c:forEach>

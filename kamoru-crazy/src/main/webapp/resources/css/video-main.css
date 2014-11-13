@@ -255,7 +255,7 @@ div#actressDiv {
 	background-color:cyan;
 }
 .label {
-	display:inline-block; 
+	display:inline-flex; 
 	text-overflow:ellipsis;
 	font-size: 12px;
 	overflow:hidden; 
@@ -330,7 +330,6 @@ div#actressDiv {
 }
 .video-table {
 	width:100%; 
-	background-color:transparent;
 	background-color:lightgray; 
 	opacity: 0.75; 
 }

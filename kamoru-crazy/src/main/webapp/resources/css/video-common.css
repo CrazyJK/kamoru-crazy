@@ -43,7 +43,9 @@ ol.items li {
 	background-repeat: no-repeat; */
 }
 .text {
-	font-size: 11px; border:0; background-color: lightgray;
+	font-size: 11px; 
+	border: 0; 
+	background-color: lightgray;
 }
 .text:focus {
 	background-color:yellow;
