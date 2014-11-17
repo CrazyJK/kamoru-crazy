@@ -12,7 +12,7 @@ public interface HistoryDao {
 
 	void persist(History history) throws IOException;
 	
-	List<History> getList();
+	List<History> getHistoryList();
 
 	List<History> find(String query);
 

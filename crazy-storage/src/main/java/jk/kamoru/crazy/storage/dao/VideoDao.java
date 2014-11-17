@@ -53,24 +53,5 @@ public interface VideoDao {
 	 * @param opus
 	 */
 	void deleteVideo(String opus);
-
-	/**
-	 * move video
-	 * @param opus
-	 * @param destPath destination path
-	 */
-	void moveVideo(String opus, String destPath);
 	
-	/**
-	 * reload video source
-	 */
-	void reload();
-
-	/**
-	 * arrange video
-	 * @param opus
-	 */
-	void arrangeVideo(String opus);
-
-	boolean contains(String opus);
 }

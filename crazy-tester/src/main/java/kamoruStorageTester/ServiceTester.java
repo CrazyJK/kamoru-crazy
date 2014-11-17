@@ -1,7 +1,7 @@
 package kamoruStorageTester;
 
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.web.service.VideoService;
+import jk.kamoru.crazy.service.StorageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class ServiceTester {
 
-	private VideoService videoService;
+	private StorageService storageService;
 	
 	@Autowired
-	public void setVideoService(VideoService videoService) {
-		this.videoService = videoService;
+	public void setVideoService(StorageService videoService) {
+		this.storageService = videoService;
 	}
 	
 //	@Scheduled(fixedRate = 5000)
 	public void getVideo() {
-		Video video = videoService.getVideo("BBI-172");
+		Video video = storageService.getVideo("BBI-172");
 		System.out.println(video.getOpus() + " " + video.getTitle());
 	}
 }

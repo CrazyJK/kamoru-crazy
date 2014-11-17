@@ -106,7 +106,7 @@ public class HistoryDaoFile implements HistoryDao {
 	}
 
 	@Override
-	public List<History> getList() {
+	public List<History> getHistoryList() {
 		return historyList();
 	}
 

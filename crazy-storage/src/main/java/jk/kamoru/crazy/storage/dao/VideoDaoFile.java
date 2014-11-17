@@ -75,35 +75,5 @@ public class VideoDaoFile implements VideoDao {
 		videoSource.removeVideo(opus);
 	}
 	
-	@Override
-//	@CacheEvict(value = { "videoCache" }, allEntries=true)
-	public void moveVideo(String opus, String destPath) {
-		logger.trace(opus);
-		videoSource.moveVideo(opus, destPath);
-	}
-	@Override
-//	@CacheEvict(value = { "videoCache", "studioCache", "actressCache" }, allEntries=true)
-	public void reload() {
-		logger.trace("reload");
-		videoSource.reload();
-	}
-
-	@Override
-	public void arrangeVideo(String opus) {
-		logger.trace(opus);
-		videoSource.arrangeVideo(opus);
-	}
-
-	@Override
-	public boolean contains(String opus) {
-		try {
-			videoSource.getVideo(opus);
-			return true;
-		} catch (VideoException e) {
-			return false;
-		}
-	}
-
-
 }
 

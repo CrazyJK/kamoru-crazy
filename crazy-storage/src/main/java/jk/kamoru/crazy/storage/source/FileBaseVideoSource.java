@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -69,6 +71,16 @@ public class FileBaseVideoSource implements VideoSource {
 	public void setSubtitlesExtensions(String subtitles_extensions) {
 		Assert.notNull(subtitles_extensions, "subtitles ext must not be null");
 		this.subtitlesExtensions = subtitles_extensions;
+	}
+	
+	@PostConstruct
+	void afterPropertiesSet() {
+		// TODO check properties
+	}
+	
+	@PreDestroy
+	void preDestory() {
+		// TODO something
 	}
 	
 	/**

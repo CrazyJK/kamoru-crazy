@@ -32,15 +32,8 @@
 		</property>
 	</bean>
 	 -->
-	<bean id="videoService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean"
-		p:serviceUrl="rmi://192.168.0.5:18588/VideoService" 
+	<bean id="storageProxy" class="org.springframework.remoting.rmi.RmiProxyFactoryBean"
+		p:serviceUrl="rmi://192.168.0.5:18588/StorageService" 
 		p:serviceInterface="jk.kamoru.crazy.service.VideoService" />
-	<bean id="imageService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean"
-		p:serviceUrl="rmi://192.168.0.5:18589/ImageService" 
-		p:serviceInterface="jk.kamoru.crazy.service.ImageService" />
-	<bean id="historyService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean"
-		p:serviceUrl="rmi://192.168.0.5:18590/HistoryService" 
-		p:serviceInterface="jk.kamoru.crazy.service.HistoryService" />
-	
 	
 </beans>

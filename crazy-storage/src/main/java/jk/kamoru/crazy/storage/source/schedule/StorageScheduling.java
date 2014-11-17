@@ -1,8 +1,8 @@
-package jk.kamoru.crazy.storage;
+package jk.kamoru.crazy.storage.source.schedule;
 
 import jk.kamoru.crazy.CRAZY;
 import jk.kamoru.crazy.storage.source.ImageSource;
-import jk.kamoru.crazy.web.service.VideoService;
+import jk.kamoru.crazy.storage.source.VideoSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ public class StorageScheduling {
 
 	private static final Logger logger = LoggerFactory.getLogger(StorageScheduling.class);
 
-	@Autowired VideoService videoService;
+	@Autowired VideoSource videoSource;
 	@Autowired ImageSource imageSource;
 
 	@Value("${task.move.watchedVideo}") 			private boolean MOVE_WATCHED_VIDEO;
@@ -32,24 +32,29 @@ public class StorageScheduling {
 
 			logger.info("  BATCH : delete lower rank video [{}]", DELETE_LOWER_RANK_VIDEO);
 			if (DELETE_LOWER_RANK_VIDEO)
-				videoService.removeLowerRankVideo();
+				// TODO
+//				videoSource.removeLowerRankVideo();
 			
 			logger.info("  BATCH : delete lower score video [{}]", DELETE_LOWER_SCORE_VIDEO);
 			if (DELETE_LOWER_SCORE_VIDEO)
-				videoService.removeLowerScoreVideo();
+				// TODO
+//				videoSource.removeLowerScoreVideo();
 			
 			logger.info("  BATCH : delete garbage file");
-			videoService.deleteGarbageFile();
+			// TODO
+//			videoSource.deleteGarbageFile();
 			
 			logger.info("  BATCH : arrange to same folder");
-			videoService.arrangeVideo();
+			// TODO
+//			videoSource.arrangeVideo();
 			
 			logger.info("  BATCH : move watched video [{}]", MOVE_WATCHED_VIDEO);
 			if (MOVE_WATCHED_VIDEO)
-				videoService.moveWatchedVideo();
+				// TODO
+//				videoSource.moveWatchedVideo();
 
 			logger.info("  BATCH : reload");
-			videoService.reload();
+			videoSource.reload();
 			
 			long elapsedTime = System.currentTimeMillis() - startTime;
 			logger.info("BATCH END. Elapsed time : {} ms", elapsedTime);
