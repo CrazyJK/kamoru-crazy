@@ -1,4 +1,4 @@
-package jk.kamoru.crazy.storage.dao;
+package jk.kamoru.crazy.shop.finder;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +14,9 @@ import jk.kamoru.crazy.VideoNotFoundException;
 import jk.kamoru.crazy.domain.Action;
 import jk.kamoru.crazy.domain.History;
 import jk.kamoru.crazy.domain.Video;
+import jk.kamoru.crazy.service.ItemFinder;
+import jk.kamoru.crazy.shop.dao.HistoryDao;
+import jk.kamoru.crazy.shop.dao.VideoDao;
 import jk.kamoru.util.FileUtils;
 import jk.kamoru.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +28,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class HistoryDaoFile implements HistoryDao {
+public class HistoryFinder implements ItemFinder<History, String, String> {
 
 	/** history file */
 	private File historyFile;

@@ -1,4 +1,4 @@
-package jk.kamoru.crazy.storage.service;
+package jk.kamoru.crazy.shop;
 
 import java.util.List;
 import java.util.Random;
@@ -13,84 +13,50 @@ import jk.kamoru.crazy.domain.Image;
 import jk.kamoru.crazy.domain.Search;
 import jk.kamoru.crazy.domain.Studio;
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.service.StorageService;
-import jk.kamoru.crazy.storage.dao.HistoryDao;
-import jk.kamoru.crazy.storage.dao.ImageDao;
-import jk.kamoru.crazy.storage.dao.VideoDao;
+import jk.kamoru.crazy.service.CrazyShop;
+import jk.kamoru.crazy.shop.dao.ActressDao;
+import jk.kamoru.crazy.shop.dao.HistoryDao;
+import jk.kamoru.crazy.shop.dao.ImageDao;
+import jk.kamoru.crazy.shop.dao.StudioDao;
+import jk.kamoru.crazy.shop.dao.VideoDao;
 import jk.kamoru.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
-public class StorageServiceImpl implements StorageService {
+public class CrazyJKShop implements CrazyShop {
 
 	@Autowired VideoDao videoDao;
+	@Autowired StudioDao studioDao;
+	@Autowired ActressDao actressDao;
 	@Autowired ImageDao imageDao;
 	@Autowired HistoryDao historyDao;
 	
 	@Override
 	public Video getVideo(String opus) throws VideoNotFoundException {
-		return videoDao.getVideo(opus);
+		return videoDao.get(opus);
 	}
 
 	@Override
 	public Studio getStudio(String name) throws StudioNotFoundException {
-		return videoDao.getStudio(name);
+		return studioDao.get(name);
 	}
 
 	@Override
 	public Actress getActress(String name) throws ActressNotFoundException {
-		return videoDao.getActress(name);
+		return actressDao.get(name);
 	}
 
 	@Override
 	// XXX trace log
 	public List<Video> findVideo(Search search) {
-		List<Video> found = videoDao.getVideoList();
-		log.trace("total {}", found.size());
-		// 검색어
-		if (StringUtils.isNotBlank(search.getSearchText()))
-			for (Video video : found)
-				if (!video.containsQuery(search.getSearchText()))
-					found.remove(video);
-		log.trace("  by search text {}", found.size());
-		// 추가 검색 조건 : 파일, 자막 존재여부
-		if (search.isAddCond())
-			for (Video video : found)
-				if (!video.checkExistCondition(search.isExistVideo(), search.isExistSubtitles()))
-					found.remove(video);
-		log.trace("  by add cond {}", found.size());
-		// rank
-		if (search.getRankRange().size() > 0)
-			for (Video video : found)
-				if (!search.getRankRange().contains(video.getRank()))
-					found.remove(video);
-		log.trace("  by rank {}", found.size());
-		// play count
-		if (search.getPlayCount() > -1)
-			for (Video video : found)
-				if (video.getPlayCount() != search.getPlayCount())
-					found.remove(video);
-		log.trace("  by play count {}", found.size());
-		// studio
-		if (search.getSelectedStudio().size() > 0)
-			for (Video video : found)
-				if (!search.getSelectedStudio().contains(video.getStudio().getName()))
-					found.remove(video);
-		log.trace("  by studio {}", found.size());
-		// actress
-		if (search.getSelectedActress().size() > 0)
-			for (Video video : found)
-				if (!video.containsAnyActressList(search.getSelectedActress()))
-					found.remove(video);
-		log.trace("  by actress {}", found.size());
-		return found;
+		return videoDao.find(search);
 	}
 
 	@Override
 	public List<Studio> findStudio(Search search) {
-		List<Studio> found = videoDao.getStudioList();
+		List<Studio> found = studioDao.list();
 		if (StringUtils.isNotBlank(search.getSearchText()))
 			for (Studio studio : found)
 				if (!StringUtils.equalsIgnoreCase(studio.getName(), search.getSearchText()))
@@ -104,7 +70,7 @@ public class StorageServiceImpl implements StorageService {
 
 	@Override
 	public List<Actress> findActress(Search search) {
-		List<Actress> found = videoDao.getActressList();
+		List<Actress> found = actressDao.list();
 		if (StringUtils.isNotBlank(search.getSearchText()))
 			for (Actress actress : found)
 				if (!StringUtils.equalsIgnoreCase(actress.getName(), search.getSearchText()))
@@ -118,52 +84,52 @@ public class StorageServiceImpl implements StorageService {
 
 	@Override
 	public void mergeVideo(Video video) {
-		Video originalVideo = videoDao.getVideo(video.getOpus());
+		Video originalVideo = videoDao.get(video.getOpus());
 		originalVideo.merge(video);
 	}
 
 	@Override
 	public void mergeStudio(Studio studio) {
-		Studio originalStudio = videoDao.getStudio(studio.getName());
+		Studio originalStudio = studioDao.get(studio.getName());
 		originalStudio.merge(studio);
 	}
 
 	@Override
 	public void mergeActress(Actress actress) {
-		Actress originalActress = videoDao.getActress(actress.getName());
+		Actress originalActress = actressDao.get(actress.getName());
 		originalActress.merge(actress);
 	}
 	
 	@Override
 	public Image getImage(Integer idx) throws ImageNotFoundException {
-		return imageDao.getImage(idx);
+		return imageDao.get(idx);
 	}
 
 	@Override
 	public Image getImageByRandom() throws ImageNotFoundException {
-		int total = imageDao.getImageSourceSize();
+		int total = imageDao.size();
 		int idx = new Random().nextInt(total);
-		return imageDao.getImage(idx);
+		return imageDao.get(idx);
 	}
 
 	@Override
 	public List<Image> getImageList() {
-		return imageDao.getImageList();
+		return imageDao.list();
 	}
 
 	@Override
 	public Integer getImageSize() {
-		return imageDao.getImageSourceSize();
+		return imageDao.size();
 	}
 
 	@Override
 	public void removeImage(Integer idx) {
-		imageDao.delete(idx);
+		imageDao.remove(idx);
 	}
 
 	@Override
 	public List<History> findHistory(Search search) {
-		List<History> found = historyDao.getHistoryList();
+		List<History> found = historyDao.list();
 		for (History history : found)
 			if (!StringUtils.equalsIgnoreCase(history.getOpus(), search.getSearchText()) 
 					&& !StringUtils.containsIgnoreCase(history.getDesc(), search.getSearchText()))
@@ -173,7 +139,7 @@ public class StorageServiceImpl implements StorageService {
 
 	@Override
 	public List<History> getHistoryList() {
-		return historyDao.getHistoryList();
+		return historyDao.list();
 	}
 
 }

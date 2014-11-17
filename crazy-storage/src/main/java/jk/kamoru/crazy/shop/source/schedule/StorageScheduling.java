@@ -1,8 +1,8 @@
-package jk.kamoru.crazy.storage.source.schedule;
+package jk.kamoru.crazy.shop.source.schedule;
 
 import jk.kamoru.crazy.CRAZY;
-import jk.kamoru.crazy.storage.source.ImageSource;
-import jk.kamoru.crazy.storage.source.VideoSource;
+import jk.kamoru.crazy.shop.source.ref.ImageSource;
+import jk.kamoru.crazy.shop.source.ref.VideoSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

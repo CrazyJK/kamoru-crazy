@@ -1,4 +1,4 @@
-package jk.kamoru.crazy.storage;
+package jk.kamoru.crazy.shop;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -7,12 +7,11 @@ import jk.kamoru.crazy.CRAZY;
 import jk.kamoru.crazy.domain.Actress;
 import jk.kamoru.crazy.domain.Studio;
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.service.StorageService;
-import jk.kamoru.crazy.storage.service.StorageServiceImpl;
-import jk.kamoru.crazy.storage.source.FileBaseVideoSource;
-import jk.kamoru.crazy.storage.source.ImageSource;
-import jk.kamoru.crazy.storage.source.LocalImageSource;
-import jk.kamoru.crazy.storage.source.VideoSource;
+import jk.kamoru.crazy.service.CrazyShop;
+import jk.kamoru.crazy.shop.source.ref.FileBaseVideoSource;
+import jk.kamoru.crazy.shop.source.ref.ImageSource;
+import jk.kamoru.crazy.shop.source.ref.LocalImageSource;
+import jk.kamoru.crazy.shop.source.ref.VideoSource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -84,8 +83,8 @@ public class Application {
     }
     
     @Bean
-    public StorageService storageSevice() {
-    	return new StorageServiceImpl();
+    public CrazyShop storageSevice() {
+    	return new CrazyJKShop();
     }
     
     @Bean
@@ -93,7 +92,7 @@ public class Application {
     	RmiServiceExporter rmiServiceExporter = new RmiServiceExporter();
     	rmiServiceExporter.setService(storageSevice());
     	rmiServiceExporter.setServiceName("StorageService");
-    	rmiServiceExporter.setServiceInterface(StorageService.class);
+    	rmiServiceExporter.setServiceInterface(CrazyShop.class);
     	rmiServiceExporter.setRegistryPort(CRAZY.RMI_PORT_STORAGE);
     	return rmiServiceExporter;
     }

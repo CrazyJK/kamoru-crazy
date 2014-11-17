@@ -1,7 +1,7 @@
 package kamoruStorageTester;
 
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.service.StorageService;
+import jk.kamoru.crazy.service.CrazyShop;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ServiceTester {
 
-	private StorageService storageService;
+	private CrazyShop storageService;
 	
 	@Autowired
-	public void setVideoService(StorageService videoService) {
+	public void setVideoService(CrazyShop videoService) {
 		this.storageService = videoService;
 	}
 	

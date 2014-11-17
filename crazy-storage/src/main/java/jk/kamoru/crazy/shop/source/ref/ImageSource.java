@@ -1,4 +1,4 @@
-package jk.kamoru.crazy.storage.source;
+package jk.kamoru.crazy.shop.source.ref;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface ImageSource {
 	
 	void reload();
 
-	void delete(int idx);
+	void remove(int idx);
 	
 }
