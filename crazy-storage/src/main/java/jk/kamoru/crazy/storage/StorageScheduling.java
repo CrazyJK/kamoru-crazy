@@ -1,8 +1,8 @@
 package jk.kamoru.crazy.storage;
 
 import jk.kamoru.crazy.CRAZY;
-import jk.kamoru.crazy.service.VideoService;
 import jk.kamoru.crazy.storage.source.ImageSource;
+import jk.kamoru.crazy.web.service.VideoService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -3,7 +3,7 @@ package jk.kamoru.crazy.domain;
 import java.util.regex.Pattern;
 
 import jk.kamoru.crazy.CrazyException;
-import jk.kamoru.crazy.util.VideoUtils;
+import jk.kamoru.crazy.util.CrazyUtils;
 import jk.kamoru.util.StringUtils;
 import lombok.Data;
 
@@ -30,7 +30,7 @@ public class TitlePart implements Comparable<TitlePart> {
 		String[] parts = StringUtils.split(title, "]");
 		if (parts != null)
 			for (int i = 0; i < parts.length; i++) {
-				setDate(i, VideoUtils.removeUnnecessaryCharacter(parts[i]));
+				setDate(i, CrazyUtils.removeUnnecessaryCharacter(parts[i]));
 			}
 		else
 			throw new CrazyException(String.format("parsing error : %s", title));

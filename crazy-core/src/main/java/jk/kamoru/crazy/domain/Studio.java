@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import jk.kamoru.crazy.CRAZY;
-import jk.kamoru.crazy.util.VideoUtils;
+import jk.kamoru.crazy.util.CrazyUtils;
 import jk.kamoru.util.FileUtils;
 import jk.kamoru.util.StringUtils;
 import lombok.Data;
@@ -104,7 +104,7 @@ public class Studio implements Serializable, Comparable<Studio> {
 	}
 
 	public void loadInfo() {
-		Map<String, String> info = VideoUtils.readFileToMap(getInfoFile());
+		Map<String, String> info = CrazyUtils.readFileToMap(getInfoFile());
 		try {
 			this.homepage = new URL(info.get(HOMEPAGE));
 		} catch (MalformedURLException e) {
@@ -119,7 +119,7 @@ public class Studio implements Serializable, Comparable<Studio> {
 		info.put(COMPANY, company);
 		info.put(HOMEPAGE, homepage.toString());
 
-		VideoUtils.saveFileFromMap(getInfoFile(), info);
+		CrazyUtils.saveFileFromMap(getInfoFile(), info);
 	}
 	
 	private File getInfoFile() {

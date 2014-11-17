@@ -1,4 +1,4 @@
-package jk.kamoru.crazy.storage.service;
+package jk.kamoru.crazy.web.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,10 +25,8 @@ import jk.kamoru.crazy.domain.SortStudio;
 import jk.kamoru.crazy.domain.TitlePart;
 import jk.kamoru.crazy.domain.Video;
 import jk.kamoru.crazy.domain.Search;
-import jk.kamoru.crazy.service.HistoryService;
-import jk.kamoru.crazy.service.VideoService;
 import jk.kamoru.crazy.storage.dao.VideoDao;
-import jk.kamoru.crazy.util.VideoUtils;
+import jk.kamoru.crazy.util.CrazyUtils;
 import jk.kamoru.util.ArrayUtils;
 import jk.kamoru.util.FileUtils;
 import jk.kamoru.util.RuntimeUtils;
@@ -422,10 +420,10 @@ public class VideoServiceImpl implements VideoService {
 		
 		List<Video> foundList = new ArrayList<Video>();
 		for (Video video : videoDao.getVideoList()) {
-			if ((VideoUtils.equals(video.getStudio().getName(), search.getSearchText()) 
-					|| VideoUtils.equals(video.getOpus(), search.getSearchText()) 
-					|| VideoUtils.containsName(video.getTitle(), search.getSearchText()) 
-					|| VideoUtils.containsActress(video, search.getSearchText())) 
+			if ((CrazyUtils.equals(video.getStudio().getName(), search.getSearchText()) 
+					|| CrazyUtils.equals(video.getOpus(), search.getSearchText()) 
+					|| CrazyUtils.containsName(video.getTitle(), search.getSearchText()) 
+					|| CrazyUtils.containsActress(video, search.getSearchText())) 
 //				&& (search.isNeverPlay() ? video.getPlayCount() == 0 : true)
 //				&& (search.isZeroRank()  ? video.getRank() == 0 : true)
 				&& (search.isAddCond()   
@@ -433,7 +431,7 @@ public class VideoServiceImpl implements VideoService {
 							&& (search.isExistSubtitles() ? video.isExistSubtitlesFileList() : !video.isExistSubtitlesFileList())) 
 						: true)
 				&& (search.getSelectedStudio() == null ? true : search.getSelectedStudio().contains(video.getStudio().getName()))
-				&& (search.getSelectedActress() == null ? true : VideoUtils.containsActress(video, search.getSelectedActress()))
+				&& (search.getSelectedActress() == null ? true : CrazyUtils.containsActress(video, search.getSelectedActress()))
 //				&& (rankCompare(video.getRank(), search.getRankSign(), search.getRank()))
 				&& (rankMatch(video.getRank(), search.getRankRange()))
 				&& (playCountMatch(video.getPlayCount(), search.getPlayCount()))
@@ -506,7 +504,7 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public void saveActressInfo(String name, Map<String, String> params) {
 		log.trace("name={}, params={}", name, params);
-		VideoUtils.saveFileFromMap(new File(videoStoragePaths[0], name + FileUtils.EXTENSION_SEPARATOR + CRAZY.EXT_ACTRESS), params);
+		CrazyUtils.saveFileFromMap(new File(videoStoragePaths[0], name + FileUtils.EXTENSION_SEPARATOR + CRAZY.EXT_ACTRESS), params);
 		// FIXME info reload logic
 //		videoDao.getActress(name).reloadInfo();
 	}
@@ -583,7 +581,7 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public void saveStudioInfo(String studio, Map<String, String> params) {
 		log.trace("name={}, params={}", studio, params);
-		VideoUtils.saveFileFromMap(new File(videoStoragePaths[0], studio + FileUtils.EXTENSION_SEPARATOR + CRAZY.EXT_STUDIO), params);
+		CrazyUtils.saveFileFromMap(new File(videoStoragePaths[0], studio + FileUtils.EXTENSION_SEPARATOR + CRAZY.EXT_STUDIO), params);
 		// FIXME info reload logic
 //		videoDao.getStudio(studio).reloadInfo();
 	}

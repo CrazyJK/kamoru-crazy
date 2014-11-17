@@ -36,12 +36,8 @@ public interface CRAZY extends KAMORU {
 
 	public static final String UNCLASSIFIEDACTRESS = "Amateur";
 
-	public static final int RMI_BASE_PORT = 18588;
+	public static final int RMI_PORT_BASE = 18588;
 
-	public static final int RMI_VIDEO_PORT = RMI_BASE_PORT;
-
-	public static final int RMI_IAMGE_PORT = RMI_BASE_PORT + 1;
-
-	public static final int RMI_HISTORY_PORT = RMI_BASE_PORT + 2;
+	public static final int RMI_PORT_STORAGE = RMI_PORT_BASE;
 
 }

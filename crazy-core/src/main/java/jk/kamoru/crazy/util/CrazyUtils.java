@@ -29,9 +29,9 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VideoUtils {
+public class CrazyUtils {
 
-	protected static final Logger logger = LoggerFactory.getLogger(VideoUtils.class);
+	protected static final Logger logger = LoggerFactory.getLogger(CrazyUtils.class);
 
 	/**
 	 * 배열을 컴마(,)로 구분한 문자열로 반환. a, b<br>

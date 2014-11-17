@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import jk.kamoru.crazy.CRAZY;
 import jk.kamoru.crazy.VideoException;
-import jk.kamoru.crazy.util.VideoUtils;
+import jk.kamoru.crazy.util.CrazyUtils;
 import jk.kamoru.util.FileUtils;
 import jk.kamoru.util.StringUtils;
 import lombok.Data;
@@ -156,7 +156,7 @@ public class Video implements Comparable<Video>, Serializable {
 	 */
 	public boolean containsActress(String actressName) {
 		for(Actress actress : actressList)
-			if (VideoUtils.equalsName(actress.getName(), actressName))
+			if (CrazyUtils.equalsName(actress.getName(), actressName))
 				return true;
 		return false;
 	}
@@ -170,7 +170,7 @@ public class Video implements Comparable<Video>, Serializable {
 		for(Actress actress : actressList) {
 			list.add(actress.getName());
 		}
-		return VideoUtils.toListToSimpleString(list);
+		return CrazyUtils.toListToSimpleString(list);
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class Video implements Comparable<Video>, Serializable {
 	 */
 	@JsonIgnore
 	public byte[] getCoverByteArray() {
-		return VideoUtils.readFileToByteArray(coverFile);
+		return CrazyUtils.readFileToByteArray(coverFile);
 	}
 	
 	/**
@@ -268,7 +268,7 @@ public class Video implements Comparable<Video>, Serializable {
 	 */
 	public String getEtcFileListPath() {
 		if(isExistEtcFileList())
-			return VideoUtils.arrayToString(getEtcFileList());
+			return CrazyUtils.arrayToString(getEtcFileList());
 		return "";
 	}
 	
@@ -324,7 +324,7 @@ public class Video implements Comparable<Video>, Serializable {
 	 */
 	public String getSubtitlesFileListPath() {
 		if(isExistSubtitlesFileList())
-			return VideoUtils.arrayToString(getSubtitlesFileList());
+			return CrazyUtils.arrayToString(getSubtitlesFileList());
 		return "";
 	}
 
@@ -356,7 +356,7 @@ public class Video implements Comparable<Video>, Serializable {
 	 */
 	public String getVideoFileListPath() {
 		if(isExistVideoFileList()) 
-			return VideoUtils.arrayToString(getVideoFileList()); 
+			return CrazyUtils.arrayToString(getVideoFileList()); 
 		return "";
 	}
 	
@@ -713,7 +713,7 @@ public class Video implements Comparable<Video>, Serializable {
 	public void rename(String newName) {
 		int count = 1;
 		// video
-		for (File file : VideoUtils.sortFile(getVideoFileList())) {
+		for (File file : CrazyUtils.sortFile(getVideoFileList())) {
 			FileUtils.rename(file, newName + count++);
 		}
 		// cover
@@ -721,7 +721,7 @@ public class Video implements Comparable<Video>, Serializable {
 		FileUtils.rename(coverWebpFile, newName);
 		// subtitles, if exist
 		count = 1;
-		for (File file : VideoUtils.sortFile(getSubtitlesFileList())) {
+		for (File file : CrazyUtils.sortFile(getSubtitlesFileList())) {
 			FileUtils.rename(file, newName + count++);
 		}
 		// info file

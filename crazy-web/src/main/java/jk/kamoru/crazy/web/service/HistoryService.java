@@ -1,4 +1,4 @@
-package jk.kamoru.crazy.service;
+package jk.kamoru.crazy.web.service;
 
 import java.util.Date;
 import java.util.List;

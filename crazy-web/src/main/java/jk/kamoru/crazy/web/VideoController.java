@@ -18,10 +18,10 @@ import jk.kamoru.crazy.domain.SortStudio;
 import jk.kamoru.crazy.domain.Video;
 import jk.kamoru.crazy.domain.Search;
 import jk.kamoru.crazy.domain.View;
-import jk.kamoru.crazy.service.HistoryService;
-import jk.kamoru.crazy.service.ImageService;
-import jk.kamoru.crazy.service.VideoService;
-import jk.kamoru.crazy.util.VideoUtils;
+import jk.kamoru.crazy.util.CrazyUtils;
+import jk.kamoru.crazy.web.service.HistoryService;
+import jk.kamoru.crazy.web.service.ImageService;
+import jk.kamoru.crazy.web.service.VideoService;
 import jk.kamoru.util.FileUtils;
 import jk.kamoru.util.StringUtils;
 
@@ -367,7 +367,7 @@ public class VideoController extends AbstractController {
 		model.addAttribute("rankRange", 	videoService.getRankRange());
 		model.addAttribute("playRange", 	videoService.getPlayRange());
 		model.addAttribute("videoList", 	videoList);
-		model.addAttribute("opusArray", 	VideoUtils.getOpusArrayStyleStringWithVideofile(videoList));
+		model.addAttribute("opusArray", 	CrazyUtils.getOpusArrayStyleStringWithVideofile(videoList));
 //		model.addAttribute("actressList", 	videoService.getActressListOfVideoes(videoList));
 //		model.addAttribute("studioList", 	videoService.getStudioListOfVideoes(videoList));
 		model.addAttribute("actressList", 	videoService.getActressList());

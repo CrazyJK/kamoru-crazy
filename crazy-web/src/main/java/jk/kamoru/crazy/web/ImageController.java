@@ -7,9 +7,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import jk.kamoru.crazy.domain.PictureType;
-import jk.kamoru.crazy.service.ImageService;
 import jk.kamoru.crazy.CRAZY;
-import jk.kamoru.crazy.util.VideoUtils;
+import jk.kamoru.crazy.util.CrazyUtils;
+import jk.kamoru.crazy.web.service.ImageService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,7 +126,7 @@ public class ImageController extends AbstractController {
 
 	@RequestMapping(value = "/google")
 	public String searchGoogle(Model model, @RequestParam(value = "q", required = false, defaultValue = "") String query) {
-		model.addAttribute(VideoUtils.getGoogleImage(query));
+		model.addAttribute(CrazyUtils.getGoogleImage(query));
 		return "image/google";
 	}
 

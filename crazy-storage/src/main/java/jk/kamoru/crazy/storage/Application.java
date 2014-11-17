@@ -7,12 +7,8 @@ import jk.kamoru.crazy.CRAZY;
 import jk.kamoru.crazy.domain.Actress;
 import jk.kamoru.crazy.domain.Studio;
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.service.HistoryService;
-import jk.kamoru.crazy.service.ImageService;
-import jk.kamoru.crazy.service.VideoService;
-import jk.kamoru.crazy.storage.service.HistoryServiceImpl;
-import jk.kamoru.crazy.storage.service.ImageServiceImpl;
-import jk.kamoru.crazy.storage.service.VideoServiceImpl;
+import jk.kamoru.crazy.service.StorageService;
+import jk.kamoru.crazy.storage.service.StorageServiceImpl;
 import jk.kamoru.crazy.storage.source.FileBaseVideoSource;
 import jk.kamoru.crazy.storage.source.ImageSource;
 import jk.kamoru.crazy.storage.source.LocalImageSource;
@@ -88,47 +84,17 @@ public class Application {
     }
     
     @Bean
-    public VideoService videoSevice() {
-    	return new VideoServiceImpl();
+    public StorageService storageSevice() {
+    	return new StorageServiceImpl();
     }
     
     @Bean
-    public ImageService imageSevice() {
-    	return new ImageServiceImpl();
-    }
-    
-    @Bean
-    public HistoryService historySevice() {
-    	return new HistoryServiceImpl();
-    }
-    
-    @Bean
-    public RmiServiceExporter videoRmiServiceExporter() {
+    public RmiServiceExporter storageExporter() {
     	RmiServiceExporter rmiServiceExporter = new RmiServiceExporter();
-    	rmiServiceExporter.setService(videoSevice());
-    	rmiServiceExporter.setServiceName("VideoService");
-    	rmiServiceExporter.setServiceInterface(VideoService.class);
-    	rmiServiceExporter.setRegistryPort(CRAZY.RMI_VIDEO_PORT);
-    	return rmiServiceExporter;
-    }
-
-    @Bean
-    public RmiServiceExporter imageRmiServiceExporter() {
-    	RmiServiceExporter rmiServiceExporter = new RmiServiceExporter();
-    	rmiServiceExporter.setService(imageSevice());
-    	rmiServiceExporter.setServiceName("ImageService");
-    	rmiServiceExporter.setServiceInterface(ImageService.class);
-    	rmiServiceExporter.setRegistryPort(CRAZY.RMI_IAMGE_PORT);
-    	return rmiServiceExporter;
-    }
-
-    @Bean
-    public RmiServiceExporter historyRmiServiceExporter() {
-    	RmiServiceExporter rmiServiceExporter = new RmiServiceExporter();
-    	rmiServiceExporter.setService(historySevice());
-    	rmiServiceExporter.setServiceName("HistoryService");
-    	rmiServiceExporter.setServiceInterface(HistoryService.class);
-    	rmiServiceExporter.setRegistryPort(CRAZY.RMI_HISTORY_PORT);
+    	rmiServiceExporter.setService(storageSevice());
+    	rmiServiceExporter.setServiceName("StorageService");
+    	rmiServiceExporter.setServiceInterface(StorageService.class);
+    	rmiServiceExporter.setRegistryPort(CRAZY.RMI_PORT_STORAGE);
     	return rmiServiceExporter;
     }
 

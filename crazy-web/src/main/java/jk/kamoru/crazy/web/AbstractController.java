@@ -2,7 +2,7 @@ package jk.kamoru.crazy.web;
 
 import java.util.Locale;
 
-import jk.kamoru.crazy.service.ImageService;
+import jk.kamoru.crazy.web.service.ImageService;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;

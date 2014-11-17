@@ -1,9 +1,8 @@
-package jk.kamoru.crazy.storage.service;
+package jk.kamoru.crazy.web.service;
 
 import java.util.List;
 
 import jk.kamoru.crazy.domain.Image;
-import jk.kamoru.crazy.service.ImageService;
 import jk.kamoru.crazy.storage.source.ImageSource;
 
 import org.springframework.beans.factory.annotation.Autowired;

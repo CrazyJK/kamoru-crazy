@@ -17,7 +17,7 @@ import jk.kamoru.crazy.VideoNotFoundException;
 import jk.kamoru.crazy.domain.Actress;
 import jk.kamoru.crazy.domain.Studio;
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.util.VideoUtils;
+import jk.kamoru.crazy.util.CrazyUtils;
 import jk.kamoru.util.FileUtils;
 import jk.kamoru.util.StringUtils;
 
@@ -131,16 +131,16 @@ public class FileBaseVideoSource implements VideoSource {
 				
 				switch (names.length) {
 				case 6:
-					etcInfo 	= VideoUtils.removeUnnecessaryCharacter(names[5]);
+					etcInfo 	= CrazyUtils.removeUnnecessaryCharacter(names[5]);
 				case 5:
-					releaseDate = VideoUtils.removeUnnecessaryCharacter(names[4]);
+					releaseDate = CrazyUtils.removeUnnecessaryCharacter(names[4]);
 				case 4:
-					actressNames = VideoUtils.removeUnnecessaryCharacter(names[3], CRAZY.UNCLASSIFIEDACTRESS);
+					actressNames = CrazyUtils.removeUnnecessaryCharacter(names[3], CRAZY.UNCLASSIFIEDACTRESS);
 				case 3:
-					title 		= VideoUtils.removeUnnecessaryCharacter(names[2], UNKNOWN);
+					title 		= CrazyUtils.removeUnnecessaryCharacter(names[2], UNKNOWN);
 				case 2:
-					opus 		= VideoUtils.removeUnnecessaryCharacter(names[1], unclassifiedOpus);
-					studioName 	= VideoUtils.removeUnnecessaryCharacter(names[0], unclassifiedStudio);
+					opus 		= CrazyUtils.removeUnnecessaryCharacter(names[1], unclassifiedOpus);
+					studioName 	= CrazyUtils.removeUnnecessaryCharacter(names[0], unclassifiedStudio);
 					break;
 				case 1:
 					studioName 	= unclassifiedStudio;
@@ -150,13 +150,13 @@ public class FileBaseVideoSource implements VideoSource {
 					break;
 				default: // if names length is over 6
 					logger.debug("File [{}] [{}] [{}]", filename, names.length, ArrayUtils.toString(names));
-					studioName 	= VideoUtils.removeUnnecessaryCharacter(names[0], unclassifiedStudio);
-					opus 		= VideoUtils.removeUnnecessaryCharacter(names[1], unclassifiedOpus);
-					title 		= VideoUtils.removeUnnecessaryCharacter(names[2], UNKNOWN);
-					actressNames = VideoUtils.removeUnnecessaryCharacter(names[3], CRAZY.UNCLASSIFIEDACTRESS);
-					releaseDate = VideoUtils.removeUnnecessaryCharacter(names[4]);
+					studioName 	= CrazyUtils.removeUnnecessaryCharacter(names[0], unclassifiedStudio);
+					opus 		= CrazyUtils.removeUnnecessaryCharacter(names[1], unclassifiedOpus);
+					title 		= CrazyUtils.removeUnnecessaryCharacter(names[2], UNKNOWN);
+					actressNames = CrazyUtils.removeUnnecessaryCharacter(names[3], CRAZY.UNCLASSIFIEDACTRESS);
+					releaseDate = CrazyUtils.removeUnnecessaryCharacter(names[4]);
 					for (int i=5, iEnd=names.length; i<iEnd; i++)
-						etcInfo = etcInfo + " " + VideoUtils.removeUnnecessaryCharacter(names[i]);
+						etcInfo = etcInfo + " " + CrazyUtils.removeUnnecessaryCharacter(names[i]);
 				}
 				
 				Video video = videoMap.get(opus.toLowerCase());
@@ -196,7 +196,7 @@ public class FileBaseVideoSource implements VideoSource {
 				video.setStudio(studio);
 				
 				for (String actressName : StringUtils.split(actressNames, ",")) { 
-					String forwardActressName = VideoUtils.forwardNameSort(actressName);
+					String forwardActressName = CrazyUtils.forwardNameSort(actressName);
 					Actress actress = actressMap.get(forwardActressName);
 					if (actress == null) {
 						actress = actressProvider.get();
@@ -287,8 +287,8 @@ public class FileBaseVideoSource implements VideoSource {
 	public Actress getActress(String name) {
 		logger.trace(name);
 		createVideoSource();
-		if (actressMap.containsKey(VideoUtils.forwardNameSort(name)))
-			return actressMap.get(VideoUtils.forwardNameSort(name));
+		if (actressMap.containsKey(CrazyUtils.forwardNameSort(name)))
+			return actressMap.get(CrazyUtils.forwardNameSort(name));
 		else
 			throw new ActressNotFoundException("Actress not found : " + name);
 	}

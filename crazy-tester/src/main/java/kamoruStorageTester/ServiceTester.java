@@ -1,7 +1,7 @@
 package kamoruStorageTester;
 
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.service.VideoService;
+import jk.kamoru.crazy.web.service.VideoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

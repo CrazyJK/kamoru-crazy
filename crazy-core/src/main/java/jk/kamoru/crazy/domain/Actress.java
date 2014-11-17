@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import jk.kamoru.crazy.CRAZY;
-import jk.kamoru.crazy.util.VideoUtils;
+import jk.kamoru.crazy.util.CrazyUtils;
 import jk.kamoru.util.FileUtils;
 import jk.kamoru.util.StringUtils;
 import lombok.Data;
@@ -66,11 +66,11 @@ public class Actress implements Serializable, Comparable<Actress> {
 	}
 	
 	public boolean contains(String actressName) {
-		return VideoUtils.equalsName(name, actressName);
+		return CrazyUtils.equalsName(name, actressName);
 	}
 		
 	public List<URL> getWebImage() {
-		return VideoUtils.getGoogleImage(name);
+		return CrazyUtils.getGoogleImage(name);
 	}
 	
 
@@ -111,7 +111,7 @@ public class Actress implements Serializable, Comparable<Actress> {
 	}
 	
 	public void loadInfo() {
-		Map<String, String> info = VideoUtils.readFileToMap(getInfoFile());
+		Map<String, String> info = CrazyUtils.readFileToMap(getInfoFile());
 		this.localName = info.get(LOCALNAME);
 		this.birth     = info.get(BIRTH);
 		this.height    = info.get(HEIGHT);
@@ -127,7 +127,7 @@ public class Actress implements Serializable, Comparable<Actress> {
 		info.put(HEIGHT, height);
 		info.put(LOCALNAME, localName);
 		info.put(BIRTH, birth);
-		VideoUtils.saveFileFromMap(getInfoFile(), info);
+		CrazyUtils.saveFileFromMap(getInfoFile(), info);
 	}
 
 	private File getInfoFile() {

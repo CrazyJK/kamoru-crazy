@@ -1,4 +1,4 @@
-package jk.kamoru.crazy.storage.service;
+package jk.kamoru.crazy.web.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +13,6 @@ import jk.kamoru.crazy.domain.Actress;
 import jk.kamoru.crazy.domain.History;
 import jk.kamoru.crazy.domain.Studio;
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.service.HistoryService;
 import jk.kamoru.crazy.storage.dao.HistoryDao;
 import jk.kamoru.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
