@@ -15,5 +15,10 @@ hs_err_pid*
 .project
 .settings
 .classpath
-target
+target/
 
+# mac
+.DS_Store
+
+# build folder
+bin/
