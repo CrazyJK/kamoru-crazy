@@ -2,190 +2,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>jk.kamoru</groupId>
-	<artifactId>kamoru-crazy</artifactId>
+	<artifactId>kamoru-crazy-singleton</artifactId>
 	<version>1.0.0</version>
-	<name>kamoru-crazy</name>
+	<name>kAmOrU Crazy Singleton</name>
 	<packaging>war</packaging>
 
-	<properties>
-		<java-version>1.6</java-version>
-		<org.springframework-version>3.2.8.RELEASE</org.springframework-version>
-		<org.spring-security-version>3.2.5.RELEASE</org.spring-security-version>
-		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<kamoru-spring-version>1.0.0</kamoru-spring-version>
-		<kamoru-web-version>1.0.0</kamoru-web-version>
-		<kamoru-tools-version>1.0.0</kamoru-tools-version>
-		<json-lib-version>2.4</json-lib-version>
-		<jackson-mapper-asl-version>1.9.12</jackson-mapper-asl-version>
-		<imgscalr-lib-version>4.2</imgscalr-lib-version>
-		<javax.inject-version>1</javax.inject-version>
-		<sitemesh-version>3.0.0</sitemesh-version>
-		<jstl-version>1.2</jstl-version>
-		<jsp-api-version>2.1</jsp-api-version>
-		<ehcache-core-version>2.5.0</ehcache-core-version>
-	</properties>
+	<parent>
+		<groupId>jk.kamoru</groupId>
+		<artifactId>kamoru-parent</artifactId>
+		<version>1.1.0</version>
+	</parent>
 
 	<dependencies>
 		<dependency>
 			<groupId>jk.kamoru</groupId>
-			<artifactId>kamoru-spring</artifactId>
-			<version>${kamoru-spring-version}</version>
-			<type>jar</type>
+			<artifactId>kamoru-boot</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>jk.kamoru</groupId>
-			<artifactId>kamoru-web</artifactId>
-			<version>${kamoru-web-version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>jk.kamoru</groupId>
-			<artifactId>kamoru-tools</artifactId>
-			<version>${kamoru-tools-version}</version>
-			<type>jar</type>
-		</dependency>
-
-		<!-- spring oxm : object xml mapping -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-oxm</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
-		<!-- spring 3.2 for ehcache -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
-		<!-- spring security taglibs -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>${org.spring-security-version}</version>
-		</dependency>
-		<!-- spring security config -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>${org.spring-security-version}</version>
-		</dependency>
-
-		<!-- AspectJ -->
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>${org.aspectj-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>${org.aspectj-version}</version>
-		</dependency>
-
-		<!-- json -->
-		<dependency>
-			<groupId>net.sf.json-lib</groupId>
-			<artifactId>json-lib</artifactId>
-			<version>${json-lib-version}</version>
-			<classifier>jdk15</classifier>
-			<exclusions>
-				<!-- Exclude Commons Logging in favor of SLF4j -->
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<!-- Data Mapper for Jackson -->
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>${jackson-mapper-asl-version}</version>
-		</dependency>
-		<!-- image scalar -->
-		<dependency>
-			<groupId>org.imgscalr</groupId>
-			<artifactId>imgscalr-lib</artifactId>
-			<version>${imgscalr-lib-version}</version>
-		</dependency>
-		<!-- @Inject -->
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>${javax.inject-version}</version>
-		</dependency>
-		<!-- sitemesh -->
-		<dependency>
-			<groupId>org.sitemesh</groupId>
-			<artifactId>sitemesh</artifactId>
-			<version>${sitemesh-version}</version>
-		</dependency>
-		<!-- Servlet jstl-->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>${jstl-version}</version>
-		</dependency>
-		<!-- servlet tagsupport -->
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>${jsp-api-version}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- ehcache -->
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache-core</artifactId>
-			<version>${ehcache-core-version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
 	</dependencies>
+
 	<build>
 		<finalName>crazy</finalName>
-		<plugins>
-			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<additionalProjectnatures>
-						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-					</additionalProjectnatures>
-					<additionalBuildcommands>
-						<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
-					</additionalBuildcommands>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<!-- <version>2.5.1</version> -->
-				<configuration>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-					<compilerArgument>-Xlint:all</compilerArgument>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<configuration>
-					<mainClass>org.test.int1.Main</mainClass>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 </project>

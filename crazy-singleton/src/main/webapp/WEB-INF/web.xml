@@ -79,8 +79,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				/WEB-INF/spring/appServlet/servlet-context.xml
-				/WEB-INF/spring/ehcache-context.xml
-			</param-value>
+			</param-value><!-- /WEB-INF/spring/ehcache-context.xml -->
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -91,6 +90,10 @@
 	<servlet>
 		<servlet-name>jkServlet</servlet-name>
 		<servlet-class>jk.kamoru.web.servlet.JKServlet</servlet-class>
+		<init-param>
+			<param-name>view</param-name>
+			<param-value>/WEB-INF/views/manager/jk.kamoru.jsp</param-value>
+		</init-param>
 		<load-on-startup>99</load-on-startup>
 	</servlet>
 	<servlet-mapping>

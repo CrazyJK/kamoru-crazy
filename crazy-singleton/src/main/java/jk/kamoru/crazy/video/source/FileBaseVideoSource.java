@@ -20,7 +20,6 @@ import jk.kamoru.crazy.video.domain.Video;
 import jk.kamoru.crazy.video.util.VideoUtils;
 import jk.kamoru.util.FileUtils;
 import jk.kamoru.util.StringUtils;
-import jk.kamoru.util.WebpUtils;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
@@ -195,8 +194,6 @@ public class FileBaseVideoSource implements VideoSource {
 				if (video_extensions.toLowerCase().contains(ext))
 					video.addVideoFile(file);
 				else if (cover_extensions.toLowerCase().contains(ext)) {
-					if (webp_mode)
-						video.setCoverWebpFile(convertWebpFile(file));
 					video.setCoverFile(file);
 				}
 				else if (subtitles_extensions.toLowerCase().contains(ext))
@@ -247,21 +244,6 @@ public class FileBaseVideoSource implements VideoSource {
 		}
 		loaded = true;
 		logger.info("Total loaded video size : {}", videoMap.size());
-	}
-
-	/**
-	 * 이미지를 webp파일로 반환. 없으면 만드는 작업 호출
-	 * @param file
-	 * @return file of webp image
-	 */
-	private File convertWebpFile(File file) {
-		logger.trace("{}", file.getAbsolutePath());
-		File webpfile = new File(file.getParent(), 
-				FileUtils.getNameExceptExtension(file) + FileUtils.EXTENSION_SEPARATOR + VIDEO.EXT_WEBP);
-		if (!webpfile.exists()) {
-			WebpUtils.convert(webp_exec, file);
-		}
-		return webpfile;
 	}
 	
 	@Override
