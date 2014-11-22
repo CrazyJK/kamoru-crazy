@@ -38,7 +38,7 @@ public class Application {
         System.setProperty("hostName", hostName);
     }
 
-    
+//  TODO change  @Value("#{'${my.list.of.strings}'.split(',')}") -> private List<String> myList;
     @Value("${path.storage.video}") 	private String[] videoStoragePaths;
     @Value("${path.storage.image}")	 	private String[] imageStoragePaths;
     @Value("${extension.video}") 		private String videoExtensions;

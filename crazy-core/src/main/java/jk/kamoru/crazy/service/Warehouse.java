@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public interface Warehouse {
 
-	<T> void fromPurifier(ItemHolder<T> holder);
+	<T> void fromPurifier(Map<ItemType, Map<String, T>> items);
 	
 	/**
 	 * 상품을 출고한다

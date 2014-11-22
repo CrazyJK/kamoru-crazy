@@ -1,18 +1,21 @@
 package jk.kamoru.crazy.shop.warehouse;
 
 import java.util.List;
+import java.util.Map;
 
 import jk.kamoru.crazy.service.ItemHolder;
+import jk.kamoru.crazy.service.ItemType;
 import jk.kamoru.crazy.service.Warehouse;
 
 public class CrazyWarehouse implements Warehouse {
 
-	List<ItemHolder> list;
+	Map<ItemType, Map<String, T>> items;
 	
 	@Override
-	public <T> void fromPurifier(ItemHolder<T> holder) {
+	public <T> void fromPurifier(Map<ItemType, Map<String, T>> items) {
 		// TODO Auto-generated method stub
-
+		
 	}
+
 
 }

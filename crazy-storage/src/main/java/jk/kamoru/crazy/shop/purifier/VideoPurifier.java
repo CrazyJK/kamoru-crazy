@@ -3,6 +3,7 @@ package jk.kamoru.crazy.shop.purifier;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -28,7 +29,7 @@ import jk.kamoru.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class VideoPurifier implements Purifier<File> {
+public class VideoPurifier implements Purifier<Video> {
 
 	private final String UNKNOWN 			 = "_Unknown";
 	private final String unclassifiedStudio  = UNKNOWN;
@@ -62,14 +63,14 @@ public class VideoPurifier implements Purifier<File> {
 	}
 
 	@Override
-	public void fromHarvester(Collection<File> items) {
+	public void fromHarvester() {
 		this.items = items;
 		
 		purifyAndToWarehouse();
 	}
 
 	@Override
-	public void purifyAndToWarehouse() {
+	public List<Video> purify(Collection<File> items) {
 		int unclassifiedNo = 1;
 		for (File file : items) {
 			try {

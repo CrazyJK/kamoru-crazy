@@ -2,10 +2,6 @@ package jk.kamoru.crazy.service;
 
 import java.util.List;
 
-import jk.kamoru.crazy.ActressNotFoundException;
-import jk.kamoru.crazy.ImageNotFoundException;
-import jk.kamoru.crazy.StudioNotFoundException;
-import jk.kamoru.crazy.VideoNotFoundException;
 import jk.kamoru.crazy.domain.Actress;
 import jk.kamoru.crazy.domain.History;
 import jk.kamoru.crazy.domain.Image;

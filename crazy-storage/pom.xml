@@ -3,40 +3,26 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>jk.kamoru</groupId>
-	<artifactId>kamoru-storage</artifactId>
-	<version>0.1.0</version>
-	<packaging>jar</packaging>
-
-
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.1.9.RELEASE</version>
-		<relativePath />
+		<groupId>jk.kamoru.crazy</groupId>
+		<artifactId>crazy-parent</artifactId>
+		<version>1.0.0</version>
 	</parent>
 
+	<artifactId>crazy-storage</artifactId>
+	<packaging>jar</packaging>
+	<name>kAmOrU Crazy Storage</name>
+	
 	<properties>
-		<java.version>1.6</java.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<start-class>jk.kamoru.crazy.storage.Application</start-class>
-		<javax.inject-version>1</javax.inject-version>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jk.kamoru</groupId>
-			<artifactId>kamoru-crazy-core</artifactId>
-			<version>1.0.0</version>
-			<exclusions>
+			<groupId>jk.kamoru.crazy</groupId>
+			<artifactId>crazy-core</artifactId>
+			<!-- <version>1.0.0</version> -->
+			<!-- <exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-log4j12</artifactId>
@@ -45,20 +31,16 @@
 					<groupId>log4j</groupId>
 					<artifactId>log4j</artifactId>
 				</exclusion>
-			</exclusions>
+			</exclusions> -->
 		</dependency>
-		<!-- @Inject -->
 		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>${javax.inject-version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>org.scala-lang</groupId>
-			<artifactId>scala-library</artifactId>
-			<version>2.10.4</version>
-		</dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>		
 	</dependencies>
 
 	<build>
@@ -82,4 +64,5 @@
 			<url>http://repo.spring.io/libs-release</url>
 		</pluginRepository>
 	</pluginRepositories>
+
 </project>
