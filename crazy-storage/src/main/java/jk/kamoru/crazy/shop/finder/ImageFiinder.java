@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import jk.kamoru.crazy.domain.Image;
-import jk.kamoru.crazy.service.ItemFinder;
 import jk.kamoru.crazy.shop.dao.ImageDao;
 import jk.kamoru.crazy.shop.source.ref.ImageSource;
 import jk.kamoru.util.StringUtils;

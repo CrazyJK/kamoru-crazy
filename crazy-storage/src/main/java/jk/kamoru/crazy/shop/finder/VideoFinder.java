@@ -4,7 +4,6 @@ import java.util.List;
 
 import jk.kamoru.crazy.domain.Search;
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.service.ItemFinder;
 import jk.kamoru.crazy.shop.dao.VideoDao;
 import jk.kamoru.crazy.shop.source.ref.VideoSource;
 import jk.kamoru.util.StringUtils;

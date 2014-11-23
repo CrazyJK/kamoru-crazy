@@ -40,4 +40,12 @@ public interface CRAZY extends KAMORU {
 
 	public static final int RMI_PORT_STORAGE = RMI_PORT_BASE;
 
+	public static final String VIDEO_FILTER = "avi,mpg,mkv,wmv,mp4,mov,rmvb";
+	
+	public static final String COVER_FILTER = "jpg,jpeg,png";
+	
+	public static final String SUBTITES_FILTER = "smi,srt,ass";
+
+	public static final String IMAGE_FILTER = "jpg,jpeg,gif,png";
+
 }

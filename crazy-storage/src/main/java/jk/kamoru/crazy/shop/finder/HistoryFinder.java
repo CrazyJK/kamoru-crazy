@@ -14,7 +14,6 @@ import jk.kamoru.crazy.VideoNotFoundException;
 import jk.kamoru.crazy.domain.Action;
 import jk.kamoru.crazy.domain.History;
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.service.ItemFinder;
 import jk.kamoru.crazy.shop.dao.HistoryDao;
 import jk.kamoru.crazy.shop.dao.VideoDao;
 import jk.kamoru.util.FileUtils;

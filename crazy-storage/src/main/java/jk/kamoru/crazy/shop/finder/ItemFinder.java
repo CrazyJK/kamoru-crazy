@@ -1,10 +1,12 @@
-package jk.kamoru.crazy.service;
+package jk.kamoru.crazy.shop.finder;
 
 import java.util.List;
 
+import jk.kamoru.crazy.service.CrazyShop;
+
 /**
  * 상품 검색
- * <p>창고({@link jk.kamoru.crazy.storage.source.Warehouse Warehouse})에서 
+ * <p>창고({@link jk.kamoru.crazy.shop.warehouse.storage.source.Warehouse Warehouse})에서 
  * 소비가자 원하는 상품을 찾아 온다<br>
  * {@link jk.kamoru.crazy.service.CrazyShop CrazyShop}에서 일한다</p>
  * @author kamoru

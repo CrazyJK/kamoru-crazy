@@ -1,35 +1,26 @@
 package jk.kamoru.crazy.shop.purifier;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import jk.kamoru.crazy.CRAZY;
-import jk.kamoru.crazy.CrazyException;
 import jk.kamoru.crazy.domain.Actress;
 import jk.kamoru.crazy.domain.Studio;
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.service.Purifier;
-import jk.kamoru.crazy.service.Warehouse;
-import jk.kamoru.crazy.shop.holder.ActressHolder;
-import jk.kamoru.crazy.shop.holder.StudioHolder;
-import jk.kamoru.crazy.shop.holder.VideoHolder;
 import jk.kamoru.crazy.util.CrazyUtils;
 import jk.kamoru.util.FileUtils;
 import jk.kamoru.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 @Slf4j
-public class VideoPurifier implements Purifier<Video> {
+public class VideoPurifier {
 
 	private final String UNKNOWN 			 = "_Unknown";
 	private final String unclassifiedStudio  = UNKNOWN;
@@ -44,35 +35,17 @@ public class VideoPurifier implements Purifier<Video> {
 	@Inject Provider<Studio>   studioProvider;
 	@Inject Provider<Actress> actressProvider;
 
-	private String 	     videoExtensions;
-	private String 	     coverExtensions;
-	private String 	 subtitlesExtensions;
-
-	private Collection<File> items;
+	private List<File> files;
 	
-	@Autowired Warehouse warehouse;
+	private boolean donePurify;
+
+	public void setFiles(List<File> files) {
+		this.files = files;
+	}
 	
-	@PostConstruct
-	private void afterPropertySet() {
-		if (videoExtensions == null)
-			throw new CrazyException("videoExtensions must be set");
-		if (coverExtensions == null)
-			throw new CrazyException("videoExtensions must be set");
-		if (subtitlesExtensions == null)
-			throw new CrazyException("videoExtensions must be set");
-	}
-
-	@Override
-	public void fromHarvester() {
-		this.items = items;
-		
-		purifyAndToWarehouse();
-	}
-
-	@Override
-	public List<Video> purify(Collection<File> items) {
+	private void purify() {
 		int unclassifiedNo = 1;
-		for (File file : items) {
+		for (File file : files) {
 			try {
 				String filename = file.getName();
 				String     name = FileUtils.getNameExceptExtension(file);
@@ -139,11 +112,11 @@ public class VideoPurifier implements Purifier<Video> {
 					log.trace("add video - {}", video);
 				}
 				// set video File
-				if (videoExtensions.toLowerCase().contains(ext))
+				if (CRAZY.VIDEO_FILTER.toLowerCase().contains(ext))
 					video.addVideoFile(file);
-				else if (coverExtensions.toLowerCase().contains(ext))
+				else if (CRAZY.COVER_FILTER.toLowerCase().contains(ext))
 					video.setCoverFile(file);
-				else if (subtitlesExtensions.toLowerCase().contains(ext))
+				else if (CRAZY.SUBTITES_FILTER.toLowerCase().contains(ext))
 					video.addSubtitlesFile(file);
 				else if (CRAZY.EXT_INFO.equalsIgnoreCase(ext))
 					video.setInfoFile(file);
@@ -189,17 +162,27 @@ public class VideoPurifier implements Purifier<Video> {
 				log.error("Error : {} - {}", file.getAbsolutePath(), e);
 			}
 		}
+		donePurify = true;
 		log.info("Total loaded video {}", videoMap.size());
-		
-		toWarehouse();
 	}
 
-	public void toWarehouse() {
-		warehouse.fromPurifier(new VideoHolder(videoMap));
-		warehouse.fromPurifier(new StudioHolder(studioMap));
-		warehouse.fromPurifier(new ActressHolder(actressMap));
+	private void checkPurify() {
+		if (!donePurify)
+			purify();
+	}
+	
+	public Map<String, Video> getVideos() {
+		checkPurify();
+		return videoMap;
 	}
 
-
-
+	public Map<String, Studio> getStudios() {
+		checkPurify();
+		return studioMap;
+	}
+	
+	public Map<String, Actress> getActresses() {
+		checkPurify();
+		return actressMap;
+	}
 }

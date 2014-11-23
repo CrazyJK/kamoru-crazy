@@ -9,25 +9,23 @@ import javax.annotation.PostConstruct;
 
 import jk.kamoru.crazy.CRAZY;
 import jk.kamoru.crazy.CrazyException;
-import jk.kamoru.crazy.service.Harvester;
 import jk.kamoru.crazy.shop.purifier.HistoryPurifier;
 import jk.kamoru.crazy.shop.purifier.ImagePurifier;
 import jk.kamoru.crazy.shop.purifier.VideoPurifier;
+import jk.kamoru.crazy.shop.warehouse.Warehouse;
 import jk.kamoru.util.FileUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
-public class FileHarvester {
-
-	@Autowired VideoPurifier videoPurifier;
-	@Autowired ImagePurifier imagePurifier;
-	@Autowired HistoryPurifier historyPurifier;
-
-	private Collection<File> videoFiles;
-	private Collection<File> imageFiles;
-	private Collection<File> historyFiles;
+public class FileHarvester implements Harvester {
+	
+	@Autowired Warehouse warehouse;
+	
+	private VideoPurifier videoPurifier;
+	private ImagePurifier imagePurifier;
+	private HistoryPurifier historyPurifier;
 
 	private List<String> videoStoragePaths;
 	private List<String> imageStoragePaths;
@@ -38,25 +36,12 @@ public class FileHarvester {
 			throw new CrazyException("videoStoragePaths must be set");
 		if (imageStoragePaths == null)
 			throw new CrazyException("imageStoragePaths must be set");
-		
-		videoFiles = new ArrayList<File>();
-		imageFiles = new ArrayList<File>();
-		historyFiles = new ArrayList<File>();
+		videoPurifier = new VideoPurifier();
+		imagePurifier = new ImagePurifier();
+		historyPurifier = new HistoryPurifier();
 	}
 	
-	public void harvest() {
-		synchronized (CRAZY.class) {
-			
-			videoHarvest();
-			imageHarvest();
-			historyHarvest();
-
-			toPurifier();
-		}
-	}
-	
-	@SuppressWarnings("unused")
-	private List<File> gather(List<String> paths, String...filter) {
+	private List<File> gathering(List<String> paths, String[] filter) {
 		List<File> files = new ArrayList<File>();
 		for (String path : paths) {
 			File directory = new File(path);
@@ -74,49 +59,23 @@ public class FileHarvester {
 		return files;
 	}
 	
-	private void videoHarvest() {
-		for (String path : videoStoragePaths) {
-			File directory = new File(path);
-			log.debug("Harvesting video : {}", directory.getAbsolutePath());
-			if (directory.isDirectory()) {
-				Collection<File> found = FileUtils.listFiles(directory, null, true);
-				log.debug("\tfound {}", found.size());
-				videoFiles.addAll(found);
-			}
-			else {
-				log.warn("\tIt is not directory. Pass!!!");
-			}
-		}
-		log.info("Total found ", videoFiles.size());
+	
+	@Override
+	public void videoHarvest() {
+		videoPurifier.setFiles(gathering(videoStoragePaths, null));
+		warehouse.pushVideoPurifier(videoPurifier);
 	}
 	
-	private void imageHarvest() {
-		for (String path : this.imageStoragePaths) {
-			File directory = new File(path);
-			log.debug("Harvesting image : {}", directory.getAbsolutePath());
-			if (directory.isDirectory()) {
-				Collection<File> found = FileUtils.listFiles(directory, new String[] {"jpg", "jpeg", "gif", "png" }, true);
-				log.debug("\tfound {}", found.size());
-				imageFiles.addAll(found);
-			}
-			else {
-				log.warn("\tIt is not directory. Pass!!!");
-			}
-		}
-		log.info("Total found {}", imageFiles.size());
-	}
-
-	private void historyHarvest() {
-		File historyFile = new File(videoStoragePaths[0], "history.log");
-		historyFiles.add(historyFile);
-		log.debug("history file is {}", historyFile.getAbsolutePath());
+	@Override
+	public void imageHarvest() {
+		imagePurifier.setFiles(gathering(imageStoragePaths, CRAZY.IMAGE_FILTER.split(",")));
+		warehouse.pushImagePurifier(imagePurifier);
 	}
 
 	@Override
-	public void toPurifier() {
-		videoPurifier.fromHarvester(videoFiles);
-		imagePurifier.fromHarvester(imageFiles);
-		historyPurifier.fromHarvester(historyFiles);
+	public void historyHarvest() {
+		historyPurifier.setFile(new File(videoStoragePaths.get(0), CRAZY.HISTORY_LOG));
+		warehouse.pushHistoryPurifier(historyPurifier);
 	}
 
 }
