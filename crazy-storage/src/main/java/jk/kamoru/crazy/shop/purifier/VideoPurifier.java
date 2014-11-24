@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-
 import jk.kamoru.crazy.CRAZY;
 import jk.kamoru.crazy.domain.Actress;
 import jk.kamoru.crazy.domain.Studio;
@@ -31,9 +28,9 @@ public class VideoPurifier {
 	private Map<String, Actress> actressMap = new HashMap<String, Actress>();
 
 	// Domain provider
-	@Inject Provider<Video>     videoProvider;
-	@Inject Provider<Studio>   studioProvider;
-	@Inject Provider<Actress> actressProvider;
+//	@Inject Provider<Video>     videoProvider;
+//	@Inject Provider<Studio>   studioProvider;
+//	@Inject Provider<Actress> actressProvider;
 
 	private List<File> files;
 	
@@ -103,7 +100,8 @@ public class VideoPurifier {
 				
 				Video video = videoMap.get(opus.toLowerCase());
 				if (video == null) {
-					video = this.videoProvider.get();
+//					video = this.videoProvider.get();
+					video = new Video();
 					video.setOpus(opus.toUpperCase());
 					video.setTitle(title);
 					video.setReleaseDate(releaseDate);
@@ -127,7 +125,8 @@ public class VideoPurifier {
 				
 				Studio studio = studioMap.get(studioName.toLowerCase());
 				if (studio == null) {
-					studio = this.studioProvider.get();
+//					studio = this.studioProvider.get();
+					studio = new Studio();
 					studio.setName(studioName);
 					studioMap.put(studioName.toLowerCase(), studio);
 					log.trace("add studio - {}", studio);
@@ -141,7 +140,8 @@ public class VideoPurifier {
 					String forwardActressName = CrazyUtils.forwardNameSort(actressName);
 					Actress actress = actressMap.get(forwardActressName);
 					if (actress == null) {
-						actress = actressProvider.get();
+//						actress = actressProvider.get();
+						actress = new Actress();
 						actress.setName(actressName.trim());
 						
 						actressMap.put(forwardActressName, actress);

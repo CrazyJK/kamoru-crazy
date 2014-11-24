@@ -1,12 +1,7 @@
 package jk.kamoru.crazy.shop;
 
 import java.util.List;
-import java.util.Random;
 
-import jk.kamoru.crazy.ActressNotFoundException;
-import jk.kamoru.crazy.ImageNotFoundException;
-import jk.kamoru.crazy.StudioNotFoundException;
-import jk.kamoru.crazy.VideoNotFoundException;
 import jk.kamoru.crazy.domain.Actress;
 import jk.kamoru.crazy.domain.History;
 import jk.kamoru.crazy.domain.Image;
@@ -14,132 +9,84 @@ import jk.kamoru.crazy.domain.Search;
 import jk.kamoru.crazy.domain.Studio;
 import jk.kamoru.crazy.domain.Video;
 import jk.kamoru.crazy.service.CrazyShop;
-import jk.kamoru.crazy.shop.dao.ActressDao;
-import jk.kamoru.crazy.shop.dao.HistoryDao;
-import jk.kamoru.crazy.shop.dao.ImageDao;
-import jk.kamoru.crazy.shop.dao.StudioDao;
-import jk.kamoru.crazy.shop.dao.VideoDao;
-import jk.kamoru.util.StringUtils;
-import lombok.extern.slf4j.Slf4j;
+import jk.kamoru.crazy.shop.finder.HistoryFinder;
+import jk.kamoru.crazy.shop.finder.ImageFinder;
+import jk.kamoru.crazy.shop.finder.VideoFinder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@Slf4j
+@Service
 public class CrazyJKShop implements CrazyShop {
 
-	@Autowired VideoDao videoDao;
-	@Autowired StudioDao studioDao;
-	@Autowired ActressDao actressDao;
-	@Autowired ImageDao imageDao;
-	@Autowired HistoryDao historyDao;
-	
-	@Override
-	public Video getVideo(String opus) throws VideoNotFoundException {
-		return videoDao.get(opus);
-	}
+	@Autowired VideoFinder videoFinder;
+	@Autowired ImageFinder imageFinder;
+	@Autowired HistoryFinder historyFinder;
 
 	@Override
-	public Studio getStudio(String name) throws StudioNotFoundException {
-		return studioDao.get(name);
+	public Video getVideo() {
+		return videoFinder.getVideo();
 	}
-
 	@Override
-	public Actress getActress(String name) throws ActressNotFoundException {
-		return actressDao.get(name);
+	public Video getVideo(String opus) {
+		return videoFinder.getVideo(opus);
 	}
-
 	@Override
-	// XXX trace log
+	public Studio getStudio(String name) {
+		return videoFinder.getStudio(name);
+	}
+	@Override
+	public Actress getActress(String name) {
+		return videoFinder.getActress(name);
+	}
+	@Override
 	public List<Video> findVideo(Search search) {
-		return videoDao.find(search);
+		return videoFinder.findVideo(search);
 	}
-
 	@Override
 	public List<Studio> findStudio(Search search) {
-		List<Studio> found = studioDao.list();
-		if (StringUtils.isNotBlank(search.getSearchText()))
-			for (Studio studio : found)
-				if (!StringUtils.equalsIgnoreCase(studio.getName(), search.getSearchText()))
-					found.remove(studio);
-		if (search.getSelectedStudio().size() > 0)
-			for (Studio studio : found)
-				if (!search.getSelectedStudio().contains(studio.getName()))
-					found.remove(studio);
-		return found;
+		return videoFinder.findStudio(search);
 	}
-
 	@Override
 	public List<Actress> findActress(Search search) {
-		List<Actress> found = actressDao.list();
-		if (StringUtils.isNotBlank(search.getSearchText()))
-			for (Actress actress : found)
-				if (!StringUtils.equalsIgnoreCase(actress.getName(), search.getSearchText()))
-					found.remove(actress);
-		if (search.getSelectedActress().size() > 0)
-			for (Actress actress : found)
-				if (!search.getSelectedActress().contains(actress.getName()))
-					found.remove(actress);
-		return found;
+		return videoFinder.findActress(search);
 	}
-
 	@Override
-	public void mergeVideo(Video video) {
-		Video originalVideo = videoDao.get(video.getOpus());
-		originalVideo.merge(video);
+	public void feedbackVideo(Video video) {
+		// TODO Auto-generated method stub
+		
 	}
-
 	@Override
-	public void mergeStudio(Studio studio) {
-		Studio originalStudio = studioDao.get(studio.getName());
-		originalStudio.merge(studio);
+	public void feedbackStudio(Studio studio) {
+		// TODO Auto-generated method stub
+		
 	}
-
 	@Override
-	public void mergeActress(Actress actress) {
-		Actress originalActress = actressDao.get(actress.getName());
-		originalActress.merge(actress);
+	public void feedbackActress(Actress actress) {
+		// TODO Auto-generated method stub
+		
 	}
-	
 	@Override
-	public Image getImage(Integer idx) throws ImageNotFoundException {
-		return imageDao.get(idx);
+	public Image getImage() {
+		return imageFinder.getImage();
 	}
-
 	@Override
-	public Image getImageByRandom() throws ImageNotFoundException {
-		int total = imageDao.size();
-		int idx = new Random().nextInt(total);
-		return imageDao.get(idx);
+	public Image getImage(Integer idx) {
+		return imageFinder.getImage(idx);
 	}
-
 	@Override
-	public List<Image> getImageList() {
-		return imageDao.list();
+	public List<Image> findImage(Search search) {
+		return imageFinder.find(search);
 	}
-
 	@Override
-	public Integer getImageSize() {
-		return imageDao.size();
+	public void feedbackImage(Integer idx) {
+		// TODO Auto-generated method stub
+		
 	}
-
-	@Override
-	public void removeImage(Integer idx) {
-		imageDao.remove(idx);
-	}
-
 	@Override
 	public List<History> findHistory(Search search) {
-		List<History> found = historyDao.list();
-		for (History history : found)
-			if (!StringUtils.equalsIgnoreCase(history.getOpus(), search.getSearchText()) 
-					&& !StringUtils.containsIgnoreCase(history.getDesc(), search.getSearchText()))
-				found.remove(history);
-		return found;
+		return historyFinder.find(search);
 	}
-
-	@Override
-	public List<History> getHistoryList() {
-		return historyDao.list();
-	}
+	
 
 }

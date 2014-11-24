@@ -38,7 +38,7 @@ public interface CRAZY extends KAMORU {
 
 	public static final int RMI_PORT_BASE = 18588;
 
-	public static final int RMI_PORT_STORAGE = RMI_PORT_BASE;
+	public static final int RMI_PORT_CrazyShop = RMI_PORT_BASE;
 
 	public static final String VIDEO_FILTER = "avi,mpg,mkv,wmv,mp4,mov,rmvb";
 	

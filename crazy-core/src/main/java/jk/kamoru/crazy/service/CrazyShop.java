@@ -20,14 +20,14 @@ public interface CrazyShop {
 
 	// about Video
 	
-	Video video();
-	Video video(String opus);
-	Studio studio(String name);
-	Actress actress(String name);
+	Video getVideo();
+	Video getVideo(String opus);
+	Studio getStudio(String name);
+	Actress getActress(String name);
 	
-	List<Video> listVideo(Search search);
-	List<Studio> listStudio(Search search);
-	List<Actress> listActress(Search search);
+	List<Video> findVideo(Search search);
+	List<Studio> findStudio(Search search);
+	List<Actress> findActress(Search search);
 	
 	void feedbackVideo(Video video);
 	void feedbackStudio(Studio studio);
@@ -35,15 +35,15 @@ public interface CrazyShop {
 	
 	// about Image
 	
-	Image image();
-	Image image(Integer idx);
+	Image getImage();
+	Image getImage(Integer idx);
 
-	List<Image> listImage(Search search);
+	List<Image> findImage(Search search);
 
 	void feedbackImage(Integer idx);
 	
 	// about History
 	
-	List<History> listHistory(Search search);
+	List<History> findHistory(Search search);
 	
 }

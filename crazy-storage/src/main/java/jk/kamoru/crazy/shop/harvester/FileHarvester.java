@@ -14,11 +14,13 @@ import jk.kamoru.crazy.shop.purifier.ImagePurifier;
 import jk.kamoru.crazy.shop.purifier.VideoPurifier;
 import jk.kamoru.crazy.shop.warehouse.Warehouse;
 import jk.kamoru.util.FileUtils;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
+@Setter
 public class FileHarvester implements Harvester {
 	
 	@Autowired Warehouse warehouse;

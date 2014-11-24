@@ -1,30 +1,58 @@
 package jk.kamoru.crazy.shop.finder;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import jk.kamoru.crazy.ActressNotFoundException;
+import jk.kamoru.crazy.StudioNotFoundException;
+import jk.kamoru.crazy.VideoNotFoundException;
+import jk.kamoru.crazy.domain.Actress;
 import jk.kamoru.crazy.domain.Search;
+import jk.kamoru.crazy.domain.Studio;
 import jk.kamoru.crazy.domain.Video;
-import jk.kamoru.crazy.shop.dao.VideoDao;
-import jk.kamoru.crazy.shop.source.ref.VideoSource;
+import jk.kamoru.crazy.shop.warehouse.Warehouse;
 import jk.kamoru.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
 @Slf4j
-public class VideoFinder implements ItemFinder<Video, String, Search> {
+@Component
+public class VideoFinder {
 	
-	protected static final Logger logger = LoggerFactory.getLogger(VideoFinder.class);
+	@Autowired Warehouse warehouse;
 
-	@Autowired
-	private VideoSource videoSource;
+	public Video getVideo() {
+		List<Video> list = listVideo();
+		return list.get(RandomUtils.nextInt(list.size()));
+	}
 
-	public List<Video> find(Search search) {
-		List<Video> found = videoSource.getVideoList();
+	public Video getVideo(String opus) {
+		Map<String, Video> videos = warehouse.getVideos();
+		if (!videos.containsKey(opus))
+			throw new VideoNotFoundException(opus);
+		return videos.get(opus);
+	}
+
+	public Studio getStudio(String name) {
+		Map<String, Studio> studios = warehouse.getStudios();
+		if (!studios.containsKey(name))
+			throw new StudioNotFoundException(name);
+		return studios.get(name);
+	}
+
+	public Actress getActress(String name) {
+		Map<String, Actress> actresses = warehouse.getActresses();
+		if (!actresses.containsKey(name))
+			throw new ActressNotFoundException(name);
+		return actresses.get(name);
+	}
+	
+	public List<Video> findVideo(Search search) {
+		List<Video> found = listVideo();
 		log.trace("total {}", found.size());
 		// 검색어
 		if (StringUtils.isNotBlank(search.getSearchText()))
@@ -65,27 +93,42 @@ public class VideoFinder implements ItemFinder<Video, String, Search> {
 		return found;
 	}
 
+	public List<Studio> findStudio(Search search) {
+		List<Studio> found = listStudio();
+		if (StringUtils.isNotBlank(search.getSearchText()))
+			for (Studio studio : found)
+				if (!StringUtils.equalsIgnoreCase(studio.getName(), search.getSearchText()))
+					found.remove(studio);
+		if (search.getSelectedStudio().size() > 0)
+			for (Studio studio : found)
+				if (!search.getSelectedStudio().contains(studio.getName()))
+					found.remove(studio);
+		return found;
+	}
+
+	public List<Actress> findActress(Search search) {
+		List<Actress> found = listActress();
+		if (StringUtils.isNotBlank(search.getSearchText()))
+			for (Actress actress : found)
+				if (!StringUtils.equalsIgnoreCase(actress.getName(), search.getSearchText()))
+					found.remove(actress);
+		if (search.getSelectedActress().size() > 0)
+			for (Actress actress : found)
+				if (!search.getSelectedActress().contains(actress.getName()))
+					found.remove(actress);
+		return found;
+	}
+
+	private List<Video> listVideo() {
+		return new ArrayList<Video>(warehouse.getVideos().values());
+	}
 	
-	@Override
-	public Video get(Object opus) {
-		videoSource.getVideo(opus.toString());
-		return null;
-	}
-
-	@Override
-	public List<Video> list() {
-		return videoSource.getVideoList();
-	}
-
-	@Override
-	public Integer size() {
-		return videoSource.getVideoList().size();
-	}
-
-	@Override
-	public void remove(String opus) {
-		videoSource.removeVideo(opus);
+	private List<Studio> listStudio() {
+		return new ArrayList<Studio>(warehouse.getStudios().values());
 	}
 	
+	private List<Actress> listActress() {
+		return new ArrayList<Actress>(warehouse.getActresses().values());
+	}
 }
 

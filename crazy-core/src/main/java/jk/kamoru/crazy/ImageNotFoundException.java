@@ -16,5 +16,9 @@ public class ImageNotFoundException extends CrazyException {
 	public ImageNotFoundException(Throwable cause) {
 		super(cause);
 	}
+
+	public ImageNotFoundException(Integer idx) {
+		super(idx.toString());
+	}
 	
 }
