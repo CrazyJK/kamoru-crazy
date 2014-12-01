@@ -25,7 +25,7 @@ import jk.kamoru.crazy.domain.SortStudio;
 import jk.kamoru.crazy.domain.TitlePart;
 import jk.kamoru.crazy.domain.Video;
 import jk.kamoru.crazy.domain.Search;
-import jk.kamoru.crazy.storage.dao.VideoDao;
+import jk.kamoru.crazy.service.CrazyShop;
 import jk.kamoru.crazy.util.CrazyUtils;
 import jk.kamoru.util.ArrayUtils;
 import jk.kamoru.util.FileUtils;
@@ -36,12 +36,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
 /**
  * video service implement class
  * @author kamoru
  */
-//@Service
+@Service
 @Slf4j
 public class VideoServiceImpl implements VideoService {
 	// become disabled by using lombok @Slf4j
@@ -81,12 +82,12 @@ public class VideoServiceImpl implements VideoService {
 	private final long SLEEP_TIME = 10 * 1000;
 	
 	/** video dao */
-	@Autowired private VideoDao videoDao;
+	@Autowired private CrazyShop crazyShop;
 
 	@Override
 	public void deleteVideo(String opus) {
 		log.trace(opus);
-		videoDao.deleteVideo(opus);
+//		crazyShop.deleteVideo(opus);
 		saveHistory(getVideo(opus), Action.DELETE);
 	}
 
@@ -216,6 +217,7 @@ public class VideoServiceImpl implements VideoService {
 		*/
 	}
 
+	// FIXME
 	@Override
 	public List<Map<String, String>> findVideoList(String query) {
 		log.trace(query);
@@ -224,22 +226,24 @@ public class VideoServiceImpl implements VideoService {
 			return foundMapList;
 
 		query = query.toLowerCase();
-		for(Video video : videoDao.getVideoList()) {
-			if(StringUtils.containsIgnoreCase(video.getOpus(), query)
-					|| StringUtils.containsIgnoreCase(video.getStudio().getName(), query)
-					|| StringUtils.containsIgnoreCase(video.getTitle(), query)
-					|| StringUtils.containsIgnoreCase(video.getActressName(), query)) {
-				Map<String, String> map = new HashMap<String, String>();
-				map.put("opus", video.getOpus());
-				map.put("title", video.getTitle());
-				map.put("studio", video.getStudio().getName());
-				map.put("actress", video.getActressName());
-				map.put("existVideo", String.valueOf(video.isExistVideoFileList()));
-				map.put("existCover", String.valueOf(video.isExistCoverFile()));
-				map.put("existSubtitles", String.valueOf(video.isExistSubtitlesFileList()));
-				foundMapList.add(map);
-			} 
-		}
+		Search search = new Search();
+		List<Video> list = crazyShop.findVideo(search);
+//		for(Video video : crazyShop.getVideoList()) {
+//			if(StringUtils.containsIgnoreCase(video.getOpus(), query)
+//					|| StringUtils.containsIgnoreCase(video.getStudio().getName(), query)
+//					|| StringUtils.containsIgnoreCase(video.getTitle(), query)
+//					|| StringUtils.containsIgnoreCase(video.getActressName(), query)) {
+//				Map<String, String> map = new HashMap<String, String>();
+//				map.put("opus", video.getOpus());
+//				map.put("title", video.getTitle());
+//				map.put("studio", video.getStudio().getName());
+//				map.put("actress", video.getActressName());
+//				map.put("existVideo", String.valueOf(video.isExistVideoFileList()));
+//				map.put("existCover", String.valueOf(video.isExistCoverFile()));
+//				map.put("existSubtitles", String.valueOf(video.isExistSubtitlesFileList()));
+//				foundMapList.add(map);
+//			} 
+//		}
 		log.debug("q={} foundLength={}", query, foundMapList.size());
 		Collections.sort(foundMapList, new Comparator<Map<String, String>>() {
 
@@ -258,7 +262,7 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public Actress getActress(String actressName) {
 		log.trace(actressName);
-		return videoDao.getActress(actressName);
+		return crazyShop.getActress(actressName);
 	}
 
 	@Override
@@ -274,7 +278,7 @@ public class VideoServiceImpl implements VideoService {
 			for (Actress actress : video.getActressList()) {
 				Actress actressInMap = actressMap.get(actress.getName());
 				if (actressInMap == null) {
-					actressInMap = videoDao.getActress(actress.getName());
+					actressInMap = crazyShop.getActress(actress.getName());
 					actressInMap.emptyVideo();
 //					actressInMap = new Actress(actress.getName());
 //					actressInMap.setMainBasePath(mainBasePath);
@@ -304,13 +308,14 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public Studio getStudio(String studioName) {
 		log.trace(studioName);
-		return videoDao.getStudio(studioName);
+		return crazyShop.getStudio(studioName);
 	}
 
 	@Override
 	public List<Studio> getStudioList() {
 		log.trace("getStudioList");
-		List<Studio> list = videoDao.getStudioList(); 
+		Search search = new Search();
+		List<Studio> list = crazyShop.findStudio(search); 
 		Collections.sort(list);
 		return list;
 	}
@@ -323,7 +328,7 @@ public class VideoServiceImpl implements VideoService {
 			String studioName = video.getStudio().getName();
 			Studio studio = studioMap.get(studioName);
 			if (studio == null) {
-				studio = videoDao.getStudio(studioName);
+				studio = crazyShop.getStudio(studioName);
 				studio.emptyVideo();
 //				studio = new Studio(studioName);
 //				studio.setMainBasePath(mainBasePath);
@@ -340,25 +345,25 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public Video getVideo(String opus) {
 		log.trace(opus);
-		return videoDao.getVideo(opus);
+		return crazyShop.getVideo(opus);
 	}
 
 	@Override
 	public byte[] getVideoCoverByteArray(String opus) {
 		log.trace(opus);
-		return videoDao.getVideo(opus).getCoverByteArray();
+		return crazyShop.getVideo(opus).getCoverByteArray();
 	}
 
 	@Override
 	public File getVideoCoverFile(String opus) {
 		log.trace(opus);
-		return videoDao.getVideo(opus).getCoverFile();
+		return crazyShop.getVideo(opus).getCoverFile();
 	}
 
 	@Override
 	public List<Video> getVideoList() {
 		log.trace("getVideoList");
-		List<Video> list = videoDao.getVideoList(); 
+		List<Video> list = crazyShop.findVideo(new Search("")); 
 		Collections.sort(list);
 		return list;
 	}
@@ -366,7 +371,7 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public void playVideo(String opus) {
 		log.trace(opus);
-		Video video = videoDao.getVideo(opus);
+		Video video = crazyShop.getVideo(opus);
 		if (!video.isExistVideoFileList())
 			throw new VideoException(video, "No video file");
 		callExecutiveCommand(video, Action.PLAY);
@@ -377,7 +382,7 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public void rankVideo(String opus, int rank) {
 		log.trace("opus={} : rank={}", opus, rank);
-		videoDao.getVideo(opus).setRank(rank);
+		crazyShop.getVideo(opus).setRank(rank);
 	}
 
 	/**save history by action
@@ -418,29 +423,31 @@ public class VideoServiceImpl implements VideoService {
 		if (search.getRankRange() == null)
 			search.setRankRange(getRankRange());
 		
-		List<Video> foundList = new ArrayList<Video>();
-		for (Video video : videoDao.getVideoList()) {
-			if ((CrazyUtils.equals(video.getStudio().getName(), search.getSearchText()) 
-					|| CrazyUtils.equals(video.getOpus(), search.getSearchText()) 
-					|| CrazyUtils.containsName(video.getTitle(), search.getSearchText()) 
-					|| CrazyUtils.containsActress(video, search.getSearchText())) 
-//				&& (search.isNeverPlay() ? video.getPlayCount() == 0 : true)
-//				&& (search.isZeroRank()  ? video.getRank() == 0 : true)
-				&& (search.isAddCond()   
-						? ((search.isExistVideo() ? video.isExistVideoFileList() : !video.isExistVideoFileList())
-							&& (search.isExistSubtitles() ? video.isExistSubtitlesFileList() : !video.isExistSubtitlesFileList())) 
-						: true)
-				&& (search.getSelectedStudio() == null ? true : search.getSelectedStudio().contains(video.getStudio().getName()))
-				&& (search.getSelectedActress() == null ? true : CrazyUtils.containsActress(video, search.getSelectedActress()))
-//				&& (rankCompare(video.getRank(), search.getRankSign(), search.getRank()))
-				&& (rankMatch(video.getRank(), search.getRankRange()))
-				&& (playCountMatch(video.getPlayCount(), search.getPlayCount()))
-				) 
-			{
-				video.setSortMethod(search.getSortMethod());
-				foundList.add(video);
-			}
-		}
+		List<Video> foundList = crazyShop.findVideo(search);
+		
+//		List<Video> foundList = new ArrayList<Video>();
+//		for (Video video : crazyShop.getVideoList()) {
+//			if ((CrazyUtils.equals(video.getStudio().getName(), search.getSearchText()) 
+//					|| CrazyUtils.equals(video.getOpus(), search.getSearchText()) 
+//					|| CrazyUtils.containsName(video.getTitle(), search.getSearchText()) 
+//					|| CrazyUtils.containsActress(video, search.getSearchText())) 
+////				&& (search.isNeverPlay() ? video.getPlayCount() == 0 : true)
+////				&& (search.isZeroRank()  ? video.getRank() == 0 : true)
+//				&& (search.isAddCond()   
+//						? ((search.isExistVideo() ? video.isExistVideoFileList() : !video.isExistVideoFileList())
+//							&& (search.isExistSubtitles() ? video.isExistSubtitlesFileList() : !video.isExistSubtitlesFileList())) 
+//						: true)
+//				&& (search.getSelectedStudio() == null ? true : search.getSelectedStudio().contains(video.getStudio().getName()))
+//				&& (search.getSelectedActress() == null ? true : CrazyUtils.containsActress(video, search.getSelectedActress()))
+////				&& (rankCompare(video.getRank(), search.getRankSign(), search.getRank()))
+//				&& (rankMatch(video.getRank(), search.getRankRange()))
+//				&& (playCountMatch(video.getPlayCount(), search.getPlayCount()))
+//				) 
+//			{
+//				video.setSortMethod(search.getSortMethod());
+//				foundList.add(video);
+//			}
+//		}
 		if (search.isSortReverse())
 			Collections.sort(foundList, Collections.reverseOrder());
 		else
@@ -482,7 +489,7 @@ public class VideoServiceImpl implements VideoService {
 		log.trace("groupByPath");
 		Map<String, Long[]> pathMap = new TreeMap<String, Long[]>();
 		Long[] total = new Long[]{0l, 0l};
-		for (Video video : videoDao.getVideoList()) {
+		for (Video video : crazyShop.findVideo(new Search(""))) {
 			String path = video.getDelegatePath();
 			if (path.contains(videoStoragePaths[0]))
 				path = videoStoragePaths[0];
@@ -513,7 +520,7 @@ public class VideoServiceImpl implements VideoService {
 	public Map<String, List<Video>> groupByDate() {
 		log.trace("groupByDate");
 		Map<String, List<Video>> map = new TreeMap<String, List<Video>>();
-		for (Video video : videoDao.getVideoList()) {
+		for (Video video : crazyShop.findVideo(new Search(""))) {
 			String yyyyMM = StringUtils.substringBeforeLast(video.getVideoDate(), "-");
 			if (map.containsKey(yyyyMM)) {
 				map.get(yyyyMM).add(video);
@@ -532,7 +539,7 @@ public class VideoServiceImpl implements VideoService {
 	public Map<Integer, List<Video>> groupByRank() {
 		log.trace("groupByRank");
 		Map<Integer, List<Video>> map = new TreeMap<Integer, List<Video>>();
-		for (Video video : videoDao.getVideoList()) {
+		for (Video video : crazyShop.findVideo(new Search(""))) {
 			Integer rank = video.getRank();
 			if (map.containsKey(rank)) {
 				map.get(rank).add(video);
@@ -551,7 +558,7 @@ public class VideoServiceImpl implements VideoService {
 	public Map<Integer, List<Video>> groupByPlay() {
 		log.trace("groupByPlay");
 		Map<Integer, List<Video>> map = new TreeMap<Integer, List<Video>>();
-		for (Video video : videoDao.getVideoList()) {
+		for (Video video : crazyShop.findVideo(new Search(""))) {
 			Integer play = video.getPlayCount();
 			if (map.containsKey(play)) {
 				map.get(play).add(video);
@@ -569,13 +576,13 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public void moveVideo(String opus, String path) {
 		log.trace("{} move to {}", opus, path);
-		videoDao.moveVideo(opus, path);
+//		crazyShop.moveVideo(opus, path);
 	}
 
 	@Override
 	public void reload() {
 		log.trace("reload");
-		videoDao.reload();
+//		crazyShop.reload();
 	}
 
 	@Override
@@ -589,7 +596,7 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public List<Actress> getActressList(SortActress sort, boolean reverse) {
 		log.trace("sort={} reverse={}", sort, reverse);
-		List<Actress> list = videoDao.getActressList();
+		List<Actress> list = crazyShop.findActress(new Search(""));
 		for (Actress actress : list)
 			actress.setSort(sort);
 		if (reverse)
@@ -602,7 +609,7 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public List<Studio> getStudioList(SortStudio sort, boolean reverse) {
 		log.trace("sort={} reverse={}", sort, reverse);
-		List<Studio> list = videoDao.getStudioList();
+		List<Studio> list = crazyShop.findStudio(new Search(""));
 		for (Studio studio : list)
 			studio.setSort(sort);
 		if (reverse)
@@ -615,7 +622,7 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public List<Video> getVideoList(SortVideo sort, boolean reverse) {
 		log.trace("sort={} reverse={}", sort, reverse);
-		List<Video> list = videoDao.getVideoList();
+		List<Video> list = crazyShop.findVideo(new Search(""));
 		for (Video video : list) 
 			video.setSortMethod(sort);
 		if (reverse)
@@ -628,7 +635,7 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public List<Integer> getPlayRange() {
 		int maxPlayCount = 0;
-		for (Video video : videoDao.getVideoList())
+		for (Video video : crazyShop.findVideo(new Search("")))
 			maxPlayCount = maxPlayCount - video.getPlayCount() > 0 ? maxPlayCount : video.getPlayCount();
 
 		List<Integer> playList = new ArrayList<Integer>();
@@ -657,10 +664,10 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public void removeLowerRankVideo() {
-		for (Video video : videoDao.getVideoList()) {
+		for (Video video : crazyShop.findVideo(new Search(""))) {
 			if (video.getRank() < baselineRank) {
 				log.info("remove lower rank video {} : {} : {}", video.getOpus(), video.getRank(), video.getTitle());
-				videoDao.deleteVideo(video.getOpus());
+//				crazyShop.deleteVideo(video.getOpus());
 			}
 		}
 	}
@@ -704,7 +711,7 @@ public class VideoServiceImpl implements VideoService {
 						video.getFullname(),
 						video.getScoreDesc());
 
-				videoDao.deleteVideo(video.getOpus());
+//				crazyShop.deleteVideo(video.getOpus());
 			}
 			else {
 				minAliveScore = score;
@@ -720,7 +727,7 @@ public class VideoServiceImpl implements VideoService {
 	 * @return
 	 */
 	private List<Video> getVideoListSortByScore() {
-		List<Video> list = videoDao.getVideoList();
+		List<Video> list = crazyShop.findVideo(new Search(""));
 		Collections.sort(list, new Comparator<Video>(){
 			@Override
 			public int compare(Video o1, Video o2) {
@@ -731,13 +738,13 @@ public class VideoServiceImpl implements VideoService {
 	
 	@Override
 	public void deleteGarbageFile() {
-		for (Video video : videoDao.getVideoList()) {
+		for (Video video : crazyShop.findVideo(new Search(""))) {
 			if (!video.isExistVideoFileList() 
 					&& !video.isExistCoverFile()
 					&& !video.isExistCoverWebpFile() 
 					&& !video.isExistSubtitlesFileList()) {
 				log.info("    delete garbage file - {}", video);
-				videoDao.deleteVideo(video.getOpus());
+//				crazyShop.deleteVideo(video.getOpus());
 			}
 		}
 	}
@@ -788,7 +795,7 @@ public class VideoServiceImpl implements VideoService {
 			// 비디오를 옮긴다
 			countOfMoveVideo++;
 			log.info("  {}. move video : {} : {}", countOfMoveVideo, video.getScore(), video.getFullname());
-			videoDao.moveVideo(video.getOpus(), destDir.getAbsolutePath());
+//			crazyShop.moveVideo(video.getOpus(), destDir.getAbsolutePath());
 
 			// 다 옮겼으면 break
 			if (countOfMoveVideo == maximumCountOfMoveVideo) {
@@ -813,9 +820,9 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public void arrangeVideo() {
-		for (Video video : videoDao.getVideoList()) {
+		for (Video video : crazyShop.findVideo(new Search(""))) {
 			log.trace("    arrange video {}", video.getOpus());
-			videoDao.arrangeVideo(video.getOpus());
+//			crazyShop.arrangeVideo(video.getOpus());
 		}
 	}
 	
@@ -824,7 +831,7 @@ public class VideoServiceImpl implements VideoService {
 		log.trace("torrent");
 		
 		List<Video> list = new ArrayList<Video>();
-		for (Video video : videoDao.getVideoList())
+		for (Video video : crazyShop.findVideo(new Search("")))
 			if (!video.isExistVideoFileList()) {
 				video.setSortMethod(SortVideo.S);
 				list.add(video);
@@ -870,7 +877,7 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public void confirmCandidate(String opus, String path) {
 		log.trace("confirmCandidate : {} - {}", opus, path);
-		Video   video = videoDao.getVideo(opus);
+		Video   video = crazyShop.getVideo(opus);
 		int videoFileSize = video.getVideoFileList().size();
 		File     file = new File(path);
 		File destFile = new File(new File(videoStoragePaths[videoStoragePaths.length-1]), 
@@ -888,7 +895,7 @@ public class VideoServiceImpl implements VideoService {
 	public Map<Integer, List<Video>> groupByScore() {
 		log.trace("groupByScore");
 		Map<Integer, List<Video>> map = new TreeMap<Integer, List<Video>>(Collections.reverseOrder());
-		for (Video video : videoDao.getVideoList()) {
+		for (Video video : crazyShop.findVideo(new Search(""))) {
 			Integer score = video.getScore();
 			if (map.containsKey(score)) {
 				map.get(score).add(video);
@@ -905,25 +912,25 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public void rename(String opus, String newName) {
-		Video video = videoDao.getVideo(opus);
+		Video video = crazyShop.getVideo(opus);
 		video.rename(newName);
-		videoDao.reload();
+//		crazyShop.reload();
 	}
 
 	@Override
 	public void renameOfActress(String name, String newName) {
-		Actress actress = videoDao.getActress(name);
+		Actress actress = crazyShop.getActress(name);
 		for (Video video : actress.getVideoList()) {
 			video.renameOfActress(newName);
 		}
-		videoDao.reload();
+//		crazyShop.reload();
 	}
 
 	@Override
 	public void renameOfStudio(String name, String newName) {
-		for (Video video : videoDao.getStudio(name).getVideoList())
+		for (Video video : crazyShop.getStudio(name).getVideoList())
 			video.renameOfStudio(newName);
-		videoDao.reload();
+//		crazyShop.reload();
 	}
 /*
 	@Override
@@ -974,10 +981,10 @@ public class VideoServiceImpl implements VideoService {
 						titlePart.setReleaseDate(titles[i++].trim());
 						titlePart.setTitle(titles[i].trim());
 //						log.info("{}", titlePart);
-						if (videoDao.contains(titlePart.getOpus())) {
-							log.info("{} exist", titlePart.getOpus());
-							continue;
-						}
+//						if (crazyShop.contains(titlePart.getOpus())) {
+//							log.info("{} exist", titlePart.getOpus());
+//							continue;
+//						}
 						
 						// history check
 						if (historyService.contains(titlePart.getOpus())) {
@@ -1016,7 +1023,7 @@ public class VideoServiceImpl implements VideoService {
 	public Map<Float, List<Video>> groupByLength() {
 		log.trace("groupByLength");
 		Map<Float, List<Video>> map = new TreeMap<Float, List<Video>>(Collections.reverseOrder());
-		for (Video video : videoDao.getVideoList()) {
+		for (Video video : crazyShop.findVideo(new Search(""))) {
 			double d = video.getLength() / (double) FileUtils.ONE_GB;
 			Float length = Float.parseFloat(String.format("%.1f", d));
 
@@ -1037,7 +1044,7 @@ public class VideoServiceImpl implements VideoService {
 	public Map<String, List<Video>> groupByExtension() {
 		log.trace("groupByExtension");
 		Map<String, List<Video>> map = new TreeMap<String, List<Video>>(Collections.reverseOrder());
-		for (Video video : videoDao.getVideoList()) {
+		for (Video video : crazyShop.findVideo(new Search(""))) {
 			String ext = video.getExt().toLowerCase();
 
 			if (map.containsKey(ext)) {

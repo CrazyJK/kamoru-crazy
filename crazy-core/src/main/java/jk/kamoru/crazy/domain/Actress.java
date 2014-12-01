@@ -19,8 +19,9 @@ import jk.kamoru.util.FileUtils;
 import jk.kamoru.util.StringUtils;
 import lombok.Data;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.context.annotation.Scope;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Scope("prototype")
 @Data

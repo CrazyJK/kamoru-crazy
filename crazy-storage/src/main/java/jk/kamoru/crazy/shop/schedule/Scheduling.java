@@ -89,6 +89,8 @@ public class Scheduling {
 				if (video.isExistVideoFileList()) {
 					File destination = video.getDelegatePathFile();
 					for (File file : video.getFileAll()) {
+						if (file == null || !file.isFile())
+							continue;
 						if (!destination.getPath().equals(file.getParentFile().getPath())) {
 							try {
 								FileUtils.moveFileToDirectory(file, destination, false);

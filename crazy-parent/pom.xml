@@ -6,11 +6,12 @@
 		<groupId>jk.kamoru</groupId>
 		<artifactId>kamoru-parent</artifactId>
 		<version>1.1.0</version>
+		<relativePath>../../kamoru-parent</relativePath>
 	</parent>
 
 	<groupId>jk.kamoru.crazy</groupId>
 	<artifactId>crazy-parent</artifactId>
-	<version>${jk.kamoru.crazy-version}</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<name>kAmOrU Crazy Parent</name>
 
@@ -29,7 +30,8 @@
 	<modules>
 		<module>../crazy-core</module>
 		<module>../crazy-storage</module>
-		<module>../crazy-tester</module>
+
+
 		<module>../crazy-web</module>
 	</modules>
 	<dependencyManagement>
@@ -43,22 +45,6 @@
 				<groupId>jk.kamoru.crazy</groupId>
 				<artifactId>crazy-storage</artifactId>
 				<version>${jk.kamoru.crazy-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-web</artifactId>
-				<version>${spring-boot-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter</artifactId>
-				<version>${spring-boot-version}</version>
-			</dependency>		
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-test</artifactId>
-				<version>${spring-boot-version}</version>
-				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

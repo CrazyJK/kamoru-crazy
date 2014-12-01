@@ -6,6 +6,7 @@
 		<groupId>jk.kamoru.crazy</groupId>
 		<artifactId>crazy-parent</artifactId>
 		<version>1.0.0</version>
+		<relativePath>../crazy-parent</relativePath>
 	</parent>
 
 	<artifactId>crazy-core</artifactId>

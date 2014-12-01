@@ -12,6 +12,7 @@ import jk.kamoru.crazy.service.CrazyShop;
 import jk.kamoru.crazy.shop.harvester.FileHarvester;
 import jk.kamoru.crazy.shop.harvester.Harvester;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -23,13 +24,18 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.remoting.rmi.RmiServiceExporter;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 
 @EnableScheduling
 @Configuration
 @ComponentScan
+@EnableWebMvcSecurity
 @EnableAutoConfiguration
 @PropertySource("classpath:/crazy.kamoru-mac.local.properties")
-public class Application {
+public class Application extends WebSecurityConfigurerAdapter {
 
     public static void main(String[] args) throws UnknownHostException {
         SpringApplication.run(Application.class, args);
@@ -50,6 +56,28 @@ public class Application {
       return new PropertySourcesPlaceholderConfigurer();
     }
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+                .antMatchers("/", "/video", "/video/list").permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+            .logout()
+                .permitAll();
+    }
+    
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .inMemoryAuthentication()
+                .withUser("kamoru").password("crazyjk").roles("USER");
+    }
+    
     @Bean
     @Scope("prototype")
     public Video video() {

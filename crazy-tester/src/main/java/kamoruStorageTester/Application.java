@@ -11,19 +11,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @EnableAutoConfiguration
 public class Application {
 
+	@SuppressWarnings("resource")
     public static void main(String[] args) {
-//        SpringApplication.run(ServiceTester.class, args);
-    	   ApplicationContext context = new ClassPathXmlApplicationContext("tester-conf.xml");
+
+		ApplicationContext context = new ClassPathXmlApplicationContext("tester-conf.xml");
     	   
            ServiceTester tester = context.getBean(ServiceTester.class);        
            tester.getVideo();
+           tester.getVideoList();
     }
     
-//    public static StorageService storageService() {
-//    	RmiProxyFactoryBean rmiProxyFactoryBean = new RmiProxyFactoryBean();
-//    	rmiProxyFactoryBean.setServiceUrl("rmi://localhost:1588/StorageService");
-//    	rmiProxyFactoryBean.setServiceInterface(StorageService.class);
-//    	
-//    	return (StorageService)rmiProxyFactoryBean.getObject();
-//    }
 }

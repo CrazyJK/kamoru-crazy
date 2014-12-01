@@ -41,6 +41,8 @@ public class FileHarvester implements Harvester {
 		videoPurifier = new VideoPurifier();
 		imagePurifier = new ImagePurifier();
 		historyPurifier = new HistoryPurifier();
+		
+		videoHarvest();
 	}
 	
 	private List<File> gathering(List<String> paths, String[] filter) {
@@ -57,7 +59,7 @@ public class FileHarvester implements Harvester {
 				log.warn("\tIt is not directory. Pass!!!");
 			}
 		}
-		log.info("Total found ", files.size());
+		log.info("Total found {}", files.size());
 		return files;
 	}
 	

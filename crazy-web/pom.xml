@@ -7,6 +7,7 @@
     	<groupId>jk.kamoru.crazy</groupId>
     	<artifactId>crazy-parent</artifactId>
     	<version>1.0.0</version>
+    	<relativePath>../crazy-parent</relativePath>
     </parent>
 
 	<artifactId>crazy-web</artifactId>
@@ -18,6 +19,38 @@
     		<groupId>jk.kamoru.crazy</groupId>
     		<artifactId>crazy-core</artifactId>
     	</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<!-- Servlet jstl-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+		</dependency>
+		<!-- spring security taglibs -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.sitemesh</groupId>
+			<artifactId>sitemesh</artifactId>
+		</dependency>
     </dependencies>
 
     <build>

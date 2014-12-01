@@ -32,8 +32,8 @@
 		</property>
 	</bean>
 	 -->
-	<bean id="storageProxy" class="org.springframework.remoting.rmi.RmiProxyFactoryBean"
-		p:serviceUrl="rmi://192.168.0.5:18588/StorageService" 
-		p:serviceInterface="jk.kamoru.crazy.service.VideoService" />
+	<bean id="crazyShop" class="org.springframework.remoting.rmi.RmiProxyFactoryBean"
+		p:serviceUrl="rmi://192.168.0.5:18588/CrazyShop" 
+		p:serviceInterface="jk.kamoru.crazy.service.CrazyShop" />
 	
 </beans>

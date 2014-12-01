@@ -62,6 +62,7 @@ $(document).ready(function(){
 	<label class="item sort-item"><input type="radio" name="viewType" value="simple" ${param.view eq 'simple' ? 'checked' : ''}/><span>Simple</span></label>
 
 	<div style="float:right">
+		<span class="label-large"><a onclick="actionFrame('<c:url value="/video/manager/batch/moveVideo?set=false"/>')"><s:message code="video.mng.move.set-false"/></a></span>
 		<span class="label-large"><a onclick="actionFrame('<c:url value="/video/manager/moveWatchedVideo"/>')"><s:message code="video.mng.move"/></a></span>
 		<span class="label-large"><a onclick="actionFrame('<c:url value="/video/manager/removeLowerRankVideo"/>')"><s:message code="video.mng.rank"/></a></span>
 		<span class="label-large"><a onclick="actionFrame('<c:url value="/video/manager/removeLowerScoreVideo"/>')"><s:message code="video.mng.score"/></a></span>

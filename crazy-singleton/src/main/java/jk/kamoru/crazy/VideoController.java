@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import jk.kamoru.crazy.image.service.ImageService;
 import jk.kamoru.crazy.video.VIDEO;
+import jk.kamoru.crazy.video.VideoBatch;
 import jk.kamoru.crazy.video.domain.Action;
 import jk.kamoru.crazy.video.domain.ActressSort;
 import jk.kamoru.crazy.video.domain.History;
@@ -55,6 +56,7 @@ public class VideoController extends AbstractController {
 	@Autowired private ImageService imageService;
 	@Autowired private VideoService videoService;
 	@Autowired private HistoryService historyService;
+	@Autowired VideoBatch videoBatch;
 
 	/**minimum rank model attrubute by named 'minRank'
 	 * @return model attribute
@@ -518,4 +520,9 @@ public class VideoController extends AbstractController {
 		return "video/torrentSearch";
 	}
 
+	@RequestMapping("/manager/batch/moveVideo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void setMoveVideo(@RequestParam("set") boolean set) {
+		videoBatch.setMOVE_WATCHED_VIDEO(set);
+	}
 }

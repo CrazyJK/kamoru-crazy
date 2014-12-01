@@ -20,9 +20,10 @@ import jk.kamoru.util.FileUtils;
 import jk.kamoru.util.StringUtils;
 import lombok.Data;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Component
 @Scope("prototype")

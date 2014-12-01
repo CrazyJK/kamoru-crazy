@@ -23,11 +23,12 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * AV Bean class<br>
@@ -47,12 +48,10 @@ public class Video implements Comparable<Video>, Serializable {
 
 	private static final Logger logger = LoggerFactory.getLogger(Video.class);
 	
-	private SortVideo sortMethod = CRAZY.DEFAULT_SORTMETHOD;
-	
 	@XmlTransient
 	@JsonIgnore
-//	@Autowired HistoryService historyService;
-	
+	private SortVideo sortMethod = CRAZY.DEFAULT_SORTMETHOD;
+		
 	// files
 	private List<File> videoFileList;
 	private List<File> subtitlesFileList;
@@ -71,6 +70,7 @@ public class Video implements Comparable<Video>, Serializable {
 	private String overview; // overview text
 	private String etcInfo;
 	private String releaseDate;
+
 	@XmlTransient
 	@JsonIgnore
 	private List<Actress> actressList;
@@ -645,14 +645,14 @@ public class Video implements Comparable<Video>, Serializable {
 	 * @return score of rank
 	 */
 	public int getRankScore() {
-		return getRank() * rankRatio;
+		return rank * rankRatio;
 	}
 
 	/**환산된 플레이 점수
 	 * @return score of play count
 	 */
 	public int getPlayScore() {
-		return getPlayCount() * playRatio;
+		return playCount * playRatio;
 	}
 
 	/**환산된 배우 점수

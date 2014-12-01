@@ -52,44 +52,45 @@ public class VideoFinder {
 	}
 	
 	public List<Video> findVideo(Search search) {
-		List<Video> found = listVideo();
-		log.trace("total {}", found.size());
+		List<Video> list = listVideo();
+		List<Video> found = new ArrayList<Video>();
+		log.debug("total {}", found.size());
 		// 검색어
 		if (StringUtils.isNotBlank(search.getSearchText()))
-			for (Video video : found)
-				if (!video.containsQuery(search.getSearchText()))
-					found.remove(video);
-		log.trace("  by search text {}", found.size());
+			for (Video video : list)
+				if (video.containsQuery(search.getSearchText()))
+					found.add(video);
+		log.debug("  by search text {}", found.size());
 		// 추가 검색 조건 : 파일, 자막 존재여부
 		if (search.isAddCond())
-			for (Video video : found)
-				if (!video.checkExistCondition(search.isExistVideo(), search.isExistSubtitles()))
-					found.remove(video);
-		log.trace("  by add cond {}", found.size());
+			for (Video video : list)
+				if (video.checkExistCondition(search.isExistVideo(), search.isExistSubtitles()))
+					found.add(video);
+		log.debug("  by add cond {}", found.size());
 		// rank
-		if (search.getRankRange().size() > 0)
-			for (Video video : found)
-				if (!search.getRankRange().contains(video.getRank()))
-					found.remove(video);
-		log.trace("  by rank {}", found.size());
+		if (search.getRankRange() != null)
+			for (Video video : list)
+				if (search.getRankRange().contains(video.getRank()))
+					found.add(video);
+		log.debug("  by rank {}", found.size());
 		// play count
 		if (search.getPlayCount() > -1)
-			for (Video video : found)
-				if (video.getPlayCount() != search.getPlayCount())
-					found.remove(video);
-		log.trace("  by play count {}", found.size());
+			for (Video video : list)
+				if (video.getPlayCount() == search.getPlayCount())
+					found.add(video);
+		log.debug("  by play count {}", found.size());
 		// studio
-		if (search.getSelectedStudio().size() > 0)
-			for (Video video : found)
-				if (!search.getSelectedStudio().contains(video.getStudio().getName()))
-					found.remove(video);
-		log.trace("  by studio {}", found.size());
+		if (search.getSelectedStudio() != null)
+			for (Video video : list)
+				if (search.getSelectedStudio().contains(video.getStudio().getName()))
+					found.add(video);
+		log.debug("  by studio {}", found.size());
 		// actress
-		if (search.getSelectedActress().size() > 0)
-			for (Video video : found)
-				if (!video.containsAnyActressList(search.getSelectedActress()))
-					found.remove(video);
-		log.trace("  by actress {}", found.size());
+		if (search.getSelectedActress() != null)
+			for (Video video : list)
+				if (video.containsAnyActressList(search.getSelectedActress()))
+					found.add(video);
+		log.debug("  by actress {}", found.size());
 		return found;
 	}
 

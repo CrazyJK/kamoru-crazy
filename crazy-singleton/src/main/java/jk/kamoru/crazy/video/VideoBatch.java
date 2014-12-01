@@ -1,6 +1,7 @@
 package jk.kamoru.crazy.video;
 
 import jk.kamoru.crazy.video.service.VideoService;
+import lombok.Setter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
+@Setter
 public class VideoBatch {
 
 	private static final Logger logger = LoggerFactory.getLogger(VideoBatch.class);

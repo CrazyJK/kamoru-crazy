@@ -1,6 +1,7 @@
 package jk.kamoru.crazy.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jk.kamoru.crazy.CRAZY;
@@ -18,7 +19,7 @@ public class Search implements Serializable {
 	/**
 	 * 검색조건 : 검색어
 	 */
-	String searchText;
+	String searchText = "";
 	/**
 	 * 검색조건 : 추가 여부. 조건 {@link #existVideo}, {@link #existSubtitles}
 	 */
@@ -30,11 +31,11 @@ public class Search implements Serializable {
 	/**
 	 * 검색조건 : 자막 존재
 	 */
-	boolean existSubtitles;
+	boolean existSubtitles = false;;
 	/**
 	 * 검색조건 : 랭킹 범위
 	 */
-	List<Integer> rankRange;
+	List<Integer> rankRange = new ArrayList<Integer>();
 	/**
 	 * 검색조건 : 플레이 횟수 
 	 */
@@ -56,11 +57,11 @@ public class Search implements Serializable {
 	/**
 	 * 검색조건 : 선택된 스튜디오
 	 */
-	List<String> selectedStudio;
+	List<String> selectedStudio = new ArrayList<String>();
 	/**
 	 * 검색조건 : 선택된 배우
 	 */
-	List<String> selectedActress;
+	List<String> selectedActress = new ArrayList<String>();
 
 	/**
 	 * 스튜디오 화면 볼지 여부
@@ -82,5 +83,11 @@ public class Search implements Serializable {
 	boolean zeroRank = false;
 	Integer rank = -2;
 	*/
-
+	public Search() {
+		
+	}
+	
+	public Search(String searchText) {
+		this.searchText = searchText;
+	}
 }

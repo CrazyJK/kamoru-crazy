@@ -51,16 +51,27 @@ public class CrazyJKShop implements CrazyShop {
 	public List<Actress> findActress(Search search) {
 		return videoFinder.findActress(search);
 	}
+	/* set Rank
+	 * set Overview
+	 * request play
+	 * @see jk.kamoru.crazy.service.CrazyShop#feedbackVideo(jk.kamoru.crazy.domain.Video)
+	 */
 	@Override
 	public void feedbackVideo(Video video) {
 		// TODO Auto-generated method stub
 		
 	}
+	/* set info
+	 * @see jk.kamoru.crazy.service.CrazyShop#feedbackStudio(jk.kamoru.crazy.domain.Studio)
+	 */
 	@Override
 	public void feedbackStudio(Studio studio) {
 		// TODO Auto-generated method stub
 		
 	}
+	/* set info
+	 * @see jk.kamoru.crazy.service.CrazyShop#feedbackActress(jk.kamoru.crazy.domain.Actress)
+	 */
 	@Override
 	public void feedbackActress(Actress actress) {
 		// TODO Auto-generated method stub
